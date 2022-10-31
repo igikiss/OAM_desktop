@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit
-from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout
+from PyQt5.QtGui import QIcon, QFont, QPixmap
+from PyQt5.QtCore import QCoreApplication, Qt
 import sys
 
 
@@ -13,10 +13,17 @@ class MainWindow(QMainWindow):
         self.setFixedWidth(1000)
         self.setFixedHeight(700)
         self.setWindowTitle('OAM Viewer')
-        self.setStyleSheet("background-color: 'white';")
-        self.setWindowIcon(QIcon('Vap_logo.png'))
-        self.show()
+        self.setStyleSheet('background-color: white;')
 
+        self.image = QPixmap('Vap_logo.png')
+        self.logo = QLabel(self)
+        self.logo.setPixmap(self.image)
+        self.logo.resize(500, 200)
+        self.logo.move(250, 0)
+
+       
+        
+        self.show()
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Message', "Are you sure to quit?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
