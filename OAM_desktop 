@@ -6,19 +6,18 @@ import sys
 app = QApplication(sys.argv)
 window = QWidget()
 window.setWindowTitle("OAM Viewer")
-window.setWindowIcon(QIcon('OAM_icon.png'))
 window.setStyleSheet("background-color: white;")
 window.setFixedSize(800, 600)
 
-# Create a grid layout
 grid = QGridLayout()
 window.setLayout(grid)
 
 image = QPixmap("Vap_logo.png")
-label = QLabel()
-label.setPixmap(image)
-label.setAlignment(QtCore.Qt.AlignCenter)
-grid.addWidget(label, 0, 0)
+logo = QLabel()
+logo.setPixmap(image)
+logo.setAlignment(QtCore.Qt.AlignCenter)
+logo.setStyleSheet('border: 1px solid black;')
+grid.addWidget(logo, 0, 0)
 
 
 
