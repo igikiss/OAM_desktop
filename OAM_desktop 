@@ -4,3 +4,28 @@ from PyQt5.QtCore import QCoreApplication
 import sys
 
 
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setFixedWidth(1000)
+        self.setFixedHeight(700)
+        self.setWindowTitle('OAM Viewer')
+        self.setStyleSheet("background-color: 'white';")
+        self.setWindowIcon(QIcon('Vap_logo.png'))
+        self.show()
+
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'Message', "Are you sure to quit?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MainWindow()
+    sys.exit(app.exec_())
