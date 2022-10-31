@@ -1,0 +1,6 @@
+#import pyQT5
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit
+from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtCore import QCoreApplication
+import sys
+
