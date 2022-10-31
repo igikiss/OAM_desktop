@@ -1,38 +1,29 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout
-from PyQt5.QtGui import QIcon, QFont, QPixmap
-from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
+from PyQt5 import QtCore, QtGui
 import sys
 
+app = QApplication(sys.argv)
+window = QWidget()
+window.setWindowTitle("OAM Viewer")
+window.setWindowIcon(QIcon('OAM_icon.png'))
+window.setStyleSheet("background-color: white;")
+window.setFixedSize(800, 600)
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.initUI()
+# Create a grid layout
+grid = QGridLayout()
+window.setLayout(grid)
 
-    def initUI(self):
-        self.setFixedWidth(1000)
-        self.setFixedHeight(700)
-        self.setWindowTitle('OAM Viewer')
-        self.setStyleSheet('background-color: white;')
+image = QPixmap("Vap_logo.png")
+label = QLabel()
+label.setPixmap(image)
+label.setAlignment(QtCore.Qt.AlignCenter)
+grid.addWidget(label, 0, 0)
 
-        self.image = QPixmap('Vap_logo.png')
-        self.logo = QLabel(self)
-        self.logo.setPixmap(self.image)
-        self.logo.resize(500, 200)
-        self.logo.move(250, 0)
 
-       
-        
-        self.show()
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'Message', "Are you sure to quit?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = MainWindow()
-    sys.exit(app.exec_())
+window.show()
+sys.exit(app.exec_())
+
+
