@@ -1,28 +1,44 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 from PyQt5 import QtCore, QtGui
 import sys
 
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.title = "OAM Desktop"
+        self.top = 100  
+        self.left = 100
+        self.width = 1200
+        self.height = 800
+        self.InitWindow()
+
+    def InitWindow(self):
+        self.setWindowIcon(QIcon("icon.png"))
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.top, self.left, self.width, self.height)
+        self.label = QLabel(self)
+        self.label_1 = QLabel('VAPOTHERM OAM VIEWER', self)
+        self.label_1.setFont(QFont('Arial', 40, QFont.Bold))
+        self.label_1.resize(600, 100)
+        self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
+        self.label_1.move(300, 50)
+        # File load button
+        self.button = QPushButton('Load File', self)
+        self.button.move(400, 200)
+        self.button.resize(200, 50)
+        self.button.setFont(QFont('Arial', 20, QFont.Bold))
+        self.button.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.button.clicked.connect(self.load_file)
+
+        
+
+
 app = QApplication(sys.argv)
-window = QWidget()
-window.setWindowTitle("OAM Viewer")
-window.setStyleSheet("background-color: white;")
-window.setFixedSize(800, 600)
 
-grid = QGridLayout()
-window.setLayout(grid)
-
-image = QPixmap("Vap_logo.png")
-logo = QLabel()
-logo.setPixmap(image)
-logo.setAlignment(QtCore.Qt.AlignCenter)
-logo.setStyleSheet('border: 1px solid black;')
-grid.addWidget(logo, 0, 0)
-
-
-
-
+window = MainWindow()
 window.show()
-sys.exit(app.exec_())
 
+app.exec()
 
