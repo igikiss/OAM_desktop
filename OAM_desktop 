@@ -33,16 +33,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
-   # create a plot widget and plot df_a 
-        self.plotWidget = pg.PlotWidget()
-        self.plotWidget.plot(df_a['1h_Rolling_Average'], pen='r')
-        self.plotWidget.showGrid(x=True, y=True)
-        self.plotWidget.setLabel('left', 'SpO2')
-        self.plotWidget.setLabel('bottom', 'Time')
-        self.plotWidget.resize(800, 600)
-        self.plotWidget.move(200, 300)
-        self.show()
-        
+  
+
       
         
 
@@ -79,6 +71,11 @@ class MainWindow(QtWidgets.QMainWindow):
         print(df_a['1h_Rolling_Average'])
 
 
+#create a plot widget from the df_a 
+class PlotWidget(pg.PlotWidget):
+    def __init__(self, df_a, parent=None):
+        super().__init__(parent)
+        self.plot(df_a['1h_Rolling_Average'], pen='r')
 
 
        
