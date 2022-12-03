@@ -1,10 +1,11 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget, QFileDialog
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 import pandas as pd
+import numpy as np
 import sys
 
-class MainWindow(QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -24,34 +25,40 @@ class MainWindow(QMainWindow):
         self.label_1.setFont(QFont('Arial', 40, QFont.Bold))
         self.label_1.resize(600, 100)
         self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
-        self.label_1.move(300, 50)
-        # File load button
+        self.label_1.move(300, 50)      
         self.l_button = QPushButton('Load File', self)
         self.l_button.move(400, 200)
         self.l_button.resize(200, 50)
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
+      
+        
 
     def load_file(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '\home', "CSV files (*.csv)")
         if fname[0]:
-            df = pd.read_csv(fname[0], encoding='unicode_escape')
-            print(df)
-
-
-  
-  
-        
-        
-
-        
+            df = pd.read_csv(fname[0], encoding='unicode_escape', skiprows=1, usecols=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13]).dropna()
+            df['DateTime'] = pd.to_datetime(df['DateTime'])
+            #set DateTime as index
+            df.set_index('DateTime', inplace=True)
+            df.info()
+            #print df DataFrame columns
+            print(df.columns)
+            
+            
+         
+           
     
+def main():
+    app = QtWidgets.QApplication(sys.argv)
+    main =MainWindow()
+    main.show()
+    sys.exit(app.exec_())
 
 
+if __name__ == '__main__':
+    main()
 
-app = QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec()
+
 
