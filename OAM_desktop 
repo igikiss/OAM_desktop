@@ -5,6 +5,8 @@ import pyqtgraph as pg
 import pandas as pd
 import numpy as np
 import sys
+import timeit
+
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -37,14 +39,16 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.pw = pg.PlotWidget(self)
         self.pw.setGeometry(100, 300, 1000, 400)
-        #self.pw.showGrid(x=True, y=True)
+        self.pw.showGrid(x=True, y=True)
         self.pw.setLabel('left', 'SpO2', units='%')
-        self.pw.setLabel('bottom', 'Time', units='h')
+        self.pw.setLabel('bottom', 'Time', units='H')
         self.pw.setTitle('SpO2')
-        self.pw.setRange(xRange=[0, 24], yRange=[0, 100], padding=0)
+        self.pw.enableAutoRange(axis='x', enable=True)
+        self.pw.enableAutoRange(axis='y', enable=True)
+        self.pw.addLegend()
 
 
-   
+
     def load_file(self):
 
         fname = QFileDialog.getOpenFileName(self, 'Open file', '\home', "CSV files (*.csv)")
@@ -76,16 +80,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
         df_m['1h_Rolling_Average'] = rolling_average(df_m, 'SpO2')
         df_a['1h_Rolling_Average'] = rolling_average(df_a, 'SpO2')
-        print(df_a['1h_Rolling_Average'])
+        print(df_a['1h_Rolling_Average', ])
+        # print timeit for rolling average function
+        print(timeit.timeit(lambda: rolling_average(df_m, 'SpO2'), number=1000))
 
-     #plot df_a rolling average
+    
         self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
         self.pw.plot(df_m['1h_Rolling_Average'], pen='b', name='Manual')
-        self.pw.legend.show()
+        
         self.pw.show()
 
 
-
+        
     
 
 def main():
