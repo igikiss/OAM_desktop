@@ -1,35 +1,34 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget, QFileDialog
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 from PyQt5 import QtCore, QtGui, QtWidgets
-import pyqtgraph as pg
 import pandas as pd
 import numpy as np
+import pyqtgraph as pg
 import sys
-import timeit
-
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.title = "OAM Desktop"
-        self.top = 100  
-        self.left = 100
-        self.width = 1200
-        self.height = 800
+        self.top = 50
+        self.left = 400
+        self.width = 1800
+        self.height = 1000
         self.InitWindow()
 
     def InitWindow(self):
         self.setWindowIcon(QIcon("icon.png"))
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
+        
         self.label = QLabel(self)
         self.label_1 = QLabel('VAPOTHERM OAM VIEWER', self)
         self.label_1.setFont(QFont('Arial', 40, QFont.Bold))
         self.label_1.resize(600, 100)
         self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
-        self.label_1.move(300, 50)      
-
+        self.label_1.move(300, 50) 
+        
         self.l_button = QPushButton('Load File', self)
         self.l_button.move(400, 200)
         self.l_button.resize(200, 50)
@@ -38,29 +37,26 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.clicked.connect(self.load_file)
         
         self.pw = pg.PlotWidget(self)
-        self.pw.setGeometry(100, 300, 1000, 400)
+        self.pw.setGeometry(50, 300, 1600, 400)
         self.pw.showGrid(x=True, y=True)
         self.pw.setLabel('left', 'SpO2', units='%')
-        self.pw.setLabel('bottom', 'Time', units='H')
+        self.pw.setLabel('bottom', 'Time', units='h')
         self.pw.setTitle('SpO2')
         self.pw.enableAutoRange(axis='x', enable=True)
         self.pw.enableAutoRange(axis='y', enable=True)
         self.pw.addLegend()
-
-
+        
 
     def load_file(self):
-
         fname = QFileDialog.getOpenFileName(self, 'Open file', '\home', "CSV files (*.csv)")
         if fname[0]:
             df = pd.read_csv(fname[0], encoding='unicode_escape', skiprows=1, usecols=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13]).dropna()
             df['DateTime'] = pd.to_datetime(df['DateTime'])
-          
+            #set DateTime as index
             df.set_index('DateTime', inplace=True)
             df.columns = df.columns.str.replace(' ', '_')
-            df.info()
-        
-            
+            modes = df['O2_Mode'].unique()
+            print(modes)
             print(df.columns)
 
         
@@ -73,26 +69,20 @@ class MainWindow(QtWidgets.QMainWindow):
 
         print(df_m, df_a)
 
-        
         def rolling_average(df, column):
             """Rolling average DataFrame by O2 mode"""
             return df[column].rolling('1H').mean()
 
         df_m['1h_Rolling_Average'] = rolling_average(df_m, 'SpO2')
         df_a['1h_Rolling_Average'] = rolling_average(df_a, 'SpO2')
-        print(df_a['1h_Rolling_Average', ])
-        # print timeit for rolling average function
-        print(timeit.timeit(lambda: rolling_average(df_m, 'SpO2'), number=1000))
-
-    
+        print(df_a)
+        
+        self.pw.plot(df_a['SpO2'], pen='#21221f', mame='SpO2')
         self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
         self.pw.plot(df_m['1h_Rolling_Average'], pen='b', name='Manual')
+     
         
-        self.pw.show()
 
-
-        
-    
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
@@ -103,6 +93,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
