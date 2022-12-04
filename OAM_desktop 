@@ -27,17 +27,26 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_1.resize(600, 100)
         self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
         self.label_1.move(300, 50)      
+
         self.l_button = QPushButton('Load File', self)
         self.l_button.move(400, 200)
         self.l_button.resize(200, 50)
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
-  
-
-      
         
 
+    
+        self.pw = pg.PlotWidget(self)
+        self.pw.setGeometry(100, 300, 1000, 400)
+        self.pw.showGrid(x=True, y=True)
+        self.pw.setLabel('left', 'SpO2', units='%')
+        self.pw.setLabel('bottom', 'Time', units='h')
+        self.pw.setTitle('SpO2')
+        self.pw.setRange(xRange=[0, 24], yRange=[0, 100], padding=0)
+
+
+   
     def load_file(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '\home', "CSV files (*.csv)")
         if fname[0]:
@@ -70,19 +79,22 @@ class MainWindow(QtWidgets.QMainWindow):
         df_a['1h_Rolling_Average'] = rolling_average(df_a, 'SpO2')
         print(df_a['1h_Rolling_Average'])
 
+     #plot df_a rolling average
+        self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
+        self.pw.plot(df_m['1h_Rolling_Average'], pen='b', name='Manual')
+        self.pw.legend.show()
+        self.pw.show()
 
-#create a plot widget from the df_a 
-class PlotWidget(pg.PlotWidget):
-    def __init__(self, df_a, parent=None):
-        super().__init__(parent)
-        self.plot(df_a['1h_Rolling_Average'], pen='r')
-
-
-       
+        
 
 
 
 
+        
+
+        
+
+    
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
