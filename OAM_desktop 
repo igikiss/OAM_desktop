@@ -27,14 +27,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_1.setFont(QFont('Arial', 40, QFont.Bold))
         self.label_1.resize(600, 100)
         self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
-        self.label_1.move(300, 50) 
+        self.label_1.move(600, 50)
+        self.label_1.setAlignment(QtCore.Qt.AlignCenter)
         
         self.l_button = QPushButton('Load File', self)
-        self.l_button.move(400, 200)
+        #move button to the center
+        self.l_button.move(800, 200)
         self.l_button.resize(200, 50)
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
+
+
         
         self.pw = pg.PlotWidget(self)
         self.pw.setGeometry(50, 300, 1600, 400)
@@ -77,11 +81,14 @@ class MainWindow(QtWidgets.QMainWindow):
         df_a['1h_Rolling_Average'] = rolling_average(df_a, 'SpO2')
         print(df_a)
         
-        self.pw.plot(df_a['SpO2'], pen='#21221f', mame='SpO2')
-        self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
-        self.pw.plot(df_m['1h_Rolling_Average'], pen='b', name='Manual')
-     
-        
+        #self.pw.plot(df_a.index, df_a['SpO2'], pen='#21221f', mame='SpO2')
+        #create a plot for each mode and add to plot widget x axis is DateTime, y axis is SpO2
+        self.pw.plot(x=df_a.index, y=df['SpO2'], pen='#21221f', name='SpO2')
+
+       
+
+      #plot is not showing DateTime on x axis
+
 
 
 def main():
