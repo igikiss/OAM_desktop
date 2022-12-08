@@ -27,6 +27,7 @@ plot.setXRange(date_min, date_max)
 # Add the data to the plot
 plot.plot(x=df.index, y=df["value"], pen=pg.mkPen(color=(255, 0, 0), width=2))
 
+
 # Show the window and run the main event loop
 win.show()
 app.exec_()
