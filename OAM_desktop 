@@ -48,6 +48,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pw.enableAutoRange(axis='x', enable=True)
         self.pw.enableAutoRange(axis='y', enable=True)
         self.pw.addLegend()
+
+        #create a second plot widget under the first one
+        self.pw_2 = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
+        self.pw_2.setGeometry(50, 700, 1600, 400)
+        self.pw_2.showGrid(x=True, y=True)
+        self.pw_2.setLabel('left', 'Signal', units='I/Q')   
+        self.pw_2.setLabel('bottom', 'Time', units='h')
+        self.pw_2.setTitle('Signal')
+        self.pw_2.enableAutoRange(axis='x', enable=True)
+        self.pw_2.enableAutoRange(axis='y', enable=True)
+        self.pw_2.addLegend()
+
+
         
 
     def load_file(self):
@@ -77,6 +90,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
         print(df_m, df_a)
 
+        def avarage_value(df, column):
+            """Calculate average value of a column in a DataFrame"""
+            return df[column].mean()
+        df_avg_a = avarage_value(df_a, 'O2')
+        df_avg_m = avarage_value(df_m, 'O2')
+
         def rolling_average(df, column):
             """Rolling average DataFrame by O2 mode"""
             return df[column].rolling('1H').mean()
@@ -84,12 +103,14 @@ class MainWindow(QtWidgets.QMainWindow):
         df_m['1h_Rolling_Average'] = rolling_average(df_m, 'SpO2')
         df_a['1h_Rolling_Average'] = rolling_average(df_a, 'SpO2')
         print(df_a)
+        print(df_avg_a, df_avg_m)
         
         #self.pw.plot(df_a.index, df_a['SpO2'], pen='#21221f', mame='SpO2')
         #create a plot for each mode and add to plot widget x axis is DateTime, y axis is SpO2
         #self.pw.plot(df_a['SpO2'], pen='r', name='Auto')
         #highlight the SpO2 values that are below 90 with different color and above 90 with different color
         self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
+        self.pw_2.plot(df_a['Signal_I/Q'], pen='r', name='Auto')
         
             
 
