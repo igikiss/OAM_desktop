@@ -61,7 +61,12 @@ class MainWindow(QtWidgets.QMainWindow):
             modes = df['O2_Mode'].unique()
             print(modes)
             print(df.columns)
+    
+        def signal_filter(df, min_signal, min_spo2):
+            """Filter DataFrame by signal strength and SpO2"""
+            return df[(df['Signal_I/Q'] >= min_signal) & (df['SpO2'] >= min_spo2)]
 
+        df = signal_filter(df, 80, 40)
         
         def filter_o2_mode(df, mode):
             """Filter DataFrame by O2 mode"""
@@ -82,12 +87,11 @@ class MainWindow(QtWidgets.QMainWindow):
         
         #self.pw.plot(df_a.index, df_a['SpO2'], pen='#21221f', mame='SpO2')
         #create a plot for each mode and add to plot widget x axis is DateTime, y axis is SpO2
-        self.pw.plot(df_a['Flow_(L/min)'], pen='r', name='Auto')
-
-       
-
-      #plot is not showing DateTime on x axis
-
+        #self.pw.plot(df_a['SpO2'], pen='r', name='Auto')
+        #highlight the SpO2 values that are below 90 with different color and above 90 with different color
+        self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
+        
+            
 
 
 def main():
