@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget, QFileDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget, QFileDialog, QFrame,
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 from PyQt5 import QtCore, QtGui, QtWidgets
 import pandas as pd
@@ -37,6 +37,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
+
+        #create a label with a border with value of df_avg_a
+   
+        self.label_2 = QLabel(self)
+        self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
+        self.label_2.setLineWidth(2)
+        self.label_2.resize(100, 200)
+        self.label_2.move(50, 50)
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+
 
 
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
@@ -92,7 +103,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         def avarage_value(df, column):
             """Calculate average value of a column in a DataFrame"""
-            return df[column].mean()
+            return round(df[column].mean(), 2)            
+
         df_avg_a = avarage_value(df_a, 'O2')
         df_avg_m = avarage_value(df_m, 'O2')
 
@@ -104,13 +116,23 @@ class MainWindow(QtWidgets.QMainWindow):
         df_a['1h_Rolling_Average'] = rolling_average(df_a, 'SpO2')
         print(df_a)
         print(df_avg_a, df_avg_m)
-        
+      
+
+  
+        self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{avarage_value(df_a, 'O2')}</p>")
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+
         #self.pw.plot(df_a.index, df_a['SpO2'], pen='#21221f', mame='SpO2')
         #create a plot for each mode and add to plot widget x axis is DateTime, y axis is SpO2
         #self.pw.plot(df_a['SpO2'], pen='r', name='Auto')
         #highlight the SpO2 values that are below 90 with different color and above 90 with different color
-        self.pw.plot(df_a['1h_Rolling_Average'], pen='r', name='Auto')
-        self.pw_2.plot(df_a['Signal_I/Q'], pen='r', name='Auto')
+        self.pw.plot(df_a['SpO2'], pen='r', name='SpO2')
+        #plot second y axis in the same plot widget
+        self.pw.plot(df_a['1h_Rolling_Average'], pen='g', name='1h_Rolling_Average')
+        #self.pw.plot(df_m['SpO2'], pen='b', name='Manual')
+       
         
             
 
