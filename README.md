@@ -1,4 +1,1 @@
-- Pridať chybové hlásenie ak sa načíta iný CSV súbor ako log z OAM
-- Vymazať predošlé dáta keď sa znova stlačí tla LOAD
-- Všetky widgety by mali byť prispôsobené k veľkosti okna
-- Vymyslieť zaujímavé štastiky ...
+
