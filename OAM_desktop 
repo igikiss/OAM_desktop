@@ -38,9 +38,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
+        self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+
+        self.roll_box = QComboBox(self)
+        self.roll_box.move(800, 300)
+        self.roll_box.resize(200, 50)
+        self.roll_box.setFont(QFont('Arial', 20, QFont.Bold))
+        self.roll_box.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.roll_box.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.roll_box.addItem("Graph_1")
+        self.roll_box.addItem("Graph_2")
+        self.roll_box.activated[str].connect(self.change_graph)
 
        
-
         self.label_2 = QLabel(self)
         self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
         self.label_2.setLineWidth(2)
@@ -151,7 +161,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pw.plot(df_a['1h_Rolling_Average'], pen='g', name='1h_Rolling_Average')
         #self.pw.plot(df_m['SpO2'], pen='b', name='Manual')
         self.pw_2.plot(df_a['PI'], pen='b', name='/erfusiion index')
-       
+    
         
             
 
@@ -166,8 +176,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-#why I got error NameError: name 'MainWindow' is not defined. Did you mean: 'QMainWindow'?
 
 
 
