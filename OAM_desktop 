@@ -32,11 +32,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_1.setFont(QFont('Arial', 40, QFont.Bold))
         self.label_1.resize(600, 50)
         self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
-        #self.label_1.move(600, 50)
-        self.label_1.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_1.move(700, 50)
+
         
         self.l_button = QPushButton('Load File', self)
-        self.l_button.move(800, 200)
+        self.l_button.move(50, 100)
         self.l_button.resize(200, 50)
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
@@ -44,7 +44,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
         
         self.roll_box = QComboBox(self)
-        self.roll_box.move(800, 300)
+        self.roll_box.move(50, 500)
         self.roll_box.resize(200, 50)
         self.roll_box.setFont(QFont('Arial', 20, QFont.Bold))
         self.roll_box.setStyleSheet("background-color: rgb(30, 195, 225);")
@@ -53,19 +53,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.roll_box.addItem("Graph_2")
         
        
-        self.label_2 = QLabel(self)
-        self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
-        self.label_2.setLineWidth(2)
-        self.label_2.resize(200, 100)
-        self.label_2.move(50, 50)
-        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        #self.label_2 = QLabel(self)
+        #self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
+        #self.label_2.setLineWidth(2)
+        #self.label_2.resize(200, 100)
+        #self.label_2.move(50, 50)
+        #self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 
-        self.label_3 = QLabel(self)
-        self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
-        self.label_3.setLineWidth(2)
-        self.label_3.resize(200, 100)
-        self.label_3.move(300, 50)
-        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
+        #self.label_3 = QLabel(self)
+        #self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
+        #self.label_3.setLineWidth(2)
+        #self.label_3.resize(200, 100)
+        #self.label_3.move(300, 50)
+        #self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 600, 1800, 250)
@@ -177,5 +177,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
 
 
