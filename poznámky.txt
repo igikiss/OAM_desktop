@@ -5,3 +5,4 @@
 - Vytvoriť PDF ako print screen z obrazovky
 - Pridať table na zobrazenie štastiky?
 - ktoré dáta do tabuľky? 
+- grafy posledných 25% percent terapie vs 75% úredošlých terapie
