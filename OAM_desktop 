@@ -42,7 +42,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
         self.l_button.clicked.connect(self.load_file)
         self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-        
+
+        self.p_button = QPushButton('PDF', self)
+        self.p_button.move(50, 100)
+        self.p_button.resize(200, 50)
+        self.p_button.setFont(QFont('Arial', 20, QFont.Bold))
+        self.p_button.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.p_button.clicked.connect(self.pdf)
+        self.p_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+
+
         self.roll_box = QComboBox(self)
         self.roll_box.move(50, 500)
         self.roll_box.resize(200, 50)
@@ -227,7 +236,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pie_chart.add_data([df_avg_a, df_avg_m], ['Auto', 'Manual'])
         self.pie_chart.update()
 
-        
+
         
             
 
