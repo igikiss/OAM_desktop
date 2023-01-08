@@ -4,3 +4,4 @@
 - Vymyslieť zaujímavé štastiky ...
 - Vytvoriť PDF ako print screen z obrazovky
 - Pridať table na zobrazenie štastiky?
+- ktoré dáta do tabuľky? 
