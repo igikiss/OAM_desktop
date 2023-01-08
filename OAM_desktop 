@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget, QFileDialog, QFrame, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QToolTip, QMessageBox, QDesktopWidget, QMainWindow, QAction, qApp, QTextEdit, QLabel, QGridLayout, QWidget, QFileDialog, QFrame, QComboBox, QTableWidget, QTableWidgetItem
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 from PyQt5 import QtCore, QtGui, QtWidgets
 import pandas as pd
@@ -105,7 +105,26 @@ class MainWindow(QtWidgets.QMainWindow):
         self.tableWidget.item(0, 1).setForeground(QtGui.QColor(0, 0, 0))
         self.tableWidget.item(1, 1).setForeground(QtGui.QColor(0, 0, 0))
 
-            
+        # add a pie chart widget which will show time in auto/manual mode
+
+        self.pie_chart = pg.PieChart(self)
+        self.pie_chart.setGeometry(50, 500, 200, 200)
+        self.pie_chart.setLabel('Time')
+        self.pie_chart.setLabelFont(QFont('Arial', 20, QFont.Bold))
+        self.pie_chart.setLabelColor(QtGui.QColor(255, 255, 255))
+        self.pie_chart.setFrameStyle(QFrame.Box | QFrame.Plain)
+        self.pie_chart.setLineWidth(2)
+        self.pie_chart.setLabelStyle({'color': 'w', 'font-size': '20pt'})
+        self.pie_chart.setLabelPosition(0.5, 0.5)
+        self.pie_chart.setLabelVisible(True)
+        self.pie_chart.setPen(QtGui.QColor(255, 255, 255))
+        self.pie_chart.setBrush(QtGui.QColor(255, 255, 255))
+        self.pie_chart.setLabelBrush(QtGui.QColor(255, 255, 255))
+        self.pie_chart.setLabelPen(QtGui.QColor(255, 255, 255))
+        self.pie_chart.setLabelVisible(True)
+        self.pie_chart.setLabelAngle(0)
+        self.pie_chart.setLabelSize(0.5)
+
 
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 600, 1800, 250)
@@ -204,6 +223,11 @@ class MainWindow(QtWidgets.QMainWindow):
         #self.pw.plot(df_m['SpO2'], pen='b', name='Manual')
         self.pw_2.plot(df_a['PI'], pen='b', name='/erfusiion index')
     
+    #add data to pie chart
+        self.pie_chart.add_data([df_avg_a, df_avg_m], ['Auto', 'Manual'])
+        self.pie_chart.update()
+
+        
         
             
 
