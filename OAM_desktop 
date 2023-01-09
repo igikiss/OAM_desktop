@@ -43,120 +43,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.l_button.clicked.connect(self.load_file)
         self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.p_button = QPushButton('PDF', self)
-        self.p_button.move(50, 100)
-        self.p_button.resize(200, 50)
-        self.p_button.setFont(QFont('Arial', 20, QFont.Bold))
-        self.p_button.setStyleSheet("background-color: rgb(30, 195, 225);")
-        self.p_button.clicked.connect(self.pdf)
-        self.p_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-
-
-        self.roll_box = QComboBox(self)
-        self.roll_box.move(50, 500)
-        self.roll_box.resize(200, 50)
-        self.roll_box.setFont(QFont('Arial', 20, QFont.Bold))
-        self.roll_box.setStyleSheet("background-color: rgb(30, 195, 225);")
-        self.roll_box.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-        self.roll_box.addItem("Graph_1")
-        self.roll_box.addItem("Graph_2")
-        
        
-        #self.label_2 = QLabel(self)
-        #self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
-        #self.label_2.setLineWidth(2)
-        #self.label_2.resize(200, 100)
-        #self.label_2.move(50, 50)
-        #self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
-
-        #self.label_3 = QLabel(self)
-        #self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
-        #self.label_3.setLineWidth(2)
-        #self.label_3.resize(200, 100)
-        #self.label_3.move(300, 50)
-        #self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
-
-        # add table
-        self.tableWidget = QtWidgets.QTableWidget(self)
-        self.tableWidget.setGeometry(50, 150, 200, 300)
-        self.tableWidget.setColumnCount(2)
-        self.tableWidget.setRowCount(3)
-        self.tableWidget.setHorizontalHeaderLabels(['Parameter', 'Value'])
-        self.tableWidget.setVerticalHeaderLabels(['SpO2', 'Pulse Rate', 'Signal'])
-        self.tableWidget.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
-        self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.tableWidget.setFont(QFont('Arial', 20, QFont.Bold))
-        self.tableWidget.resizeColumnsToContents()
-        self.tableWidget.resizeRowsToContents()
-        self.tableWidget.horizontalHeader().setStretchLastSection(True)
-        self.tableWidget.verticalHeader().setStretchLastSection(True)
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        self.tableWidget.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        self.tableWidget.setFrameStyle(QFrame.Box | QFrame.Plain)
-        self.tableWidget.setLineWidth(2)
-        self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.tableWidget.item(0, 0).setBackground(QtGui.QColor(30, 195, 225))
-        self.tableWidget.item(1, 0).setBackground(QtGui.QColor(30, 195, 225))
-        self.tableWidget.item(2, 0).setBackground(QtGui.QColor(30, 195, 225))
-        self.tableWidget.item(0, 1).setBackground(QtGui.QColor(255, 255, 255))
-        self.tableWidget.item(1, 1).setBackground(QtGui.QColor(255, 255, 255))
-        self.tableWidget.item(2, 1).setBackground(QtGui.QColor(255, 255, 255))
-        self.tableWidget.item(0, 0).setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableWidget.item(1, 0).setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableWidget.item(2, 0).setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableWidget.item(0, 1).setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableWidget.item(1, 1).setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableWidget.item(2, 1).setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableWidget.item(0, 0).setForeground(QtGui.QColor(255, 255, 255))
-        self.tableWidget.item(1, 0).setForeground(QtGui.QColor(255, 255, 255))
-        self.tableWidget.item(2, 0).setForeground(QtGui.QColor(255, 255, 255))
-        self.tableWidget.item(0, 1).setForeground(QtGui.QColor(0, 0, 0))
-        self.tableWidget.item(1, 1).setForeground(QtGui.QColor(0, 0, 0))
-
-        # add a pie chart widget which will show time in auto/manual mode
-
-        self.pie_chart = pg.PieChart(self)
-        self.pie_chart.setGeometry(50, 500, 200, 200)
-        self.pie_chart.setLabel('Time')
-        self.pie_chart.setLabelFont(QFont('Arial', 20, QFont.Bold))
-        self.pie_chart.setLabelColor(QtGui.QColor(255, 255, 255))
-        self.pie_chart.setFrameStyle(QFrame.Box | QFrame.Plain)
-        self.pie_chart.setLineWidth(2)
-        self.pie_chart.setLabelStyle({'color': 'w', 'font-size': '20pt'})
-        self.pie_chart.setLabelPosition(0.5, 0.5)
-        self.pie_chart.setLabelVisible(True)
-        self.pie_chart.setPen(QtGui.QColor(255, 255, 255))
-        self.pie_chart.setBrush(QtGui.QColor(255, 255, 255))
-        self.pie_chart.setLabelBrush(QtGui.QColor(255, 255, 255))
-        self.pie_chart.setLabelPen(QtGui.QColor(255, 255, 255))
-        self.pie_chart.setLabelVisible(True)
-        self.pie_chart.setLabelAngle(0)
-        self.pie_chart.setLabelSize(0.5)
-
-
-        self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
-        self.pw.setGeometry(50, 600, 1800, 250)
-        self.pw.showGrid(x=True, y=True)
-        self.pw.setLabel('left', 'SpO2', units='%')
-        self.pw.setLabel('bottom', 'Time', units='h')
-        self.pw.setTitle('SpO2')
-        self.pw.enableAutoRange(axis='x', enable=True)
-        self.pw.enableAutoRange(axis='y', enable=True)
-        self.pw.addLegend()
-        self.pw.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-
-        self.pw_2 = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
-        self.pw_2.setGeometry(50, 800, 1800, 250)
-        self.pw_2.showGrid(x=True, y=True)
-        self.pw_2.setLabel('left', 'Signal', units='I/Q')   
-        self.pw_2.setLabel('bottom', 'Time', units='h')
-        self.pw_2.setTitle('Signal')
-        self.pw_2.enableAutoRange(axis='x', enable=True)
-        self.pw_2.enableAutoRange(axis='y', enable=True)
-        self.pw_2.addLegend()
-        self.pw_2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-
 
     def load_file(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '\home', "CSV files (*.csv)")
@@ -210,35 +97,7 @@ class MainWindow(QtWidgets.QMainWindow):
       
 
   
-        self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{avarage_value(df_a, 'O2')}</p>")
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 
-        self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{elapsed_time(df_a)}</p>")
-        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
-
-            
-        #self.pw.plot(df_a.index, df_a['SpO2'], pen='#21221f', mame='SpO2')
-        #create a plot for each mode and add to plot widget x axis is DateTime, y axis is SpO2
-        #self.pw.plot(df_a['SpO2'], pen='r', name='Auto')
-        #highlight the SpO2 values that are below 90 with different color and above 90 with different color
-
-        self.pw.plot(df_a['SpO2'], pen='r', name='SpO2')
-        
-        #plot second y axis in the same plot widget
-
-        self.pw.plot(df_a['1h_Rolling_Average'], pen='g', name='1h_Rolling_Average')
-        #self.pw.plot(df_m['SpO2'], pen='b', name='Manual')
-        self.pw_2.plot(df_a['PI'], pen='b', name='/erfusiion index')
-    
-    #add data to pie chart
-        self.pie_chart.add_data([df_avg_a, df_avg_m], ['Auto', 'Manual'])
-        self.pie_chart.update()
-
-
-        
-            
 
 
 def main():
