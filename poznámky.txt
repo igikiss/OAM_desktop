@@ -6,3 +6,4 @@
 - Pridať table na zobrazenie štastiky?
 - ktoré dáta do tabuľky? 
 - grafy posledných 25% percent terapie vs 75% úredošlých terapie
+- bar graf na zobrazenie distribucie O2 módov a hladiny FIO2 
