@@ -2,7 +2,6 @@ import pandas as pd
 from PyQt5.QtWidgets import QFileDialog
 
 
-
 def load_file():
     fname = QFileDialog.getOpenFileName(None, 'Open file', '\home', "CSV files (*.csv)")
     if fname[0]:
