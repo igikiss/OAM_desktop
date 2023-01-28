@@ -6,6 +6,7 @@ import OAMImporter
 import pyqtgraph as pg
 from PyQt5.QtWidgets import QFileDialog
 
+
 #from pyqtgraph.Qt import QtGui
 
 class MainWindow(QMainWindow):
@@ -68,12 +69,12 @@ class MainWindow(QMainWindow):
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
-    #load_file function to load the file from OAMImporter 
+
+
     def load_file(self):
         return OAMImporter.load_file()
 
-        
-
+  
        
 def main():
     app = QtWidgets.QApplication(sys.argv)
