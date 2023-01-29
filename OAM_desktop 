@@ -5,7 +5,7 @@ from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
 import OAMDataMan 
 import pyqtgraph as pg
-from PyQt5.QtWidgets import QFileDialog
+
 
 
 class MainWindow(QMainWindow):
@@ -83,13 +83,15 @@ class MainWindow(QMainWindow):
         #bar_graph = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
         #self.bar_plot_1.getAxis('bottom').setTicks(ticks)
         #self.bar_plot_1.addItem(bar_graph)
+    data = OAMDataMan.DataAnalysis()
 
+    df= data.signal_filter(80, 80)
 
     def load_file(self):
         """Load file from OAMFile class"""
         return OAMFile.LoadFile().get_file()
 
-    
+
 
     
    
