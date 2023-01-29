@@ -3,13 +3,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFil
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
+import OAMDataMan 
 import pyqtgraph as pg
 from PyQt5.QtWidgets import QFileDialog
 
-
-
-
-#from pyqtgraph.Qt import QtGui
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -54,6 +51,18 @@ class MainWindow(QMainWindow):
         #self.pdf_button.clicked.connect(self.export_pdf)
         self.pdf_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
+        self.bar_plot_1 = pg.PlotWidget(self)
+        self.bar_plot_1.move(300, 150)
+        self.bar_plot_1.resize(300, 300)
+        self.bar_plot_1.setBackground('w')  
+        self.bar_plot_1.showGrid(x=True, y=True)
+        self.bar_plot_1.setMouseEnabled(x=False, y=False)
+        self.bar_plot_1.setMenuEnabled(False)
+        self.bar_plot_1.setLogMode(x=False, y=False)
+        self.bar_plot_1.setClipToView(True)
+        self.bar_plot_1.setAntialiasing(True)
+        self.bar_plot_1.setLimits(xMin=0, xMax=100, yMin=0, yMax=100)
+
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 500, 1800, 250)
         self.pw.showGrid(x=True, y=True)
@@ -71,12 +80,19 @@ class MainWindow(QMainWindow):
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
+        #bar_graph = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
+        #self.bar_plot_1.getAxis('bottom').setTicks(ticks)
+        #self.bar_plot_1.addItem(bar_graph)
 
 
     def load_file(self):
+        """Load file from OAMFile class"""
         return OAMFile.LoadFile().get_file()
 
+    
 
+    
+   
        
 def main():
     app = QtWidgets.QApplication(sys.argv)
