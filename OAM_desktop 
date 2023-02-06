@@ -11,8 +11,6 @@ import pyqtgraph as pg
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        
         self.title = ("OAM Desktop")
         self.screen = QtWidgets.QDesktopWidget().screenGeometry()
         self.width = self.screen.width()
@@ -80,28 +78,23 @@ class MainWindow(QMainWindow):
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
+      
         #bar_graph = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
         #self.bar_plot_1.getAxis('bottom').setTicks(ticks)
         #self.bar_plot_1.addItem(bar_graph)
-    data = OAMDataMan.DataAnalysis()
 
-    df= data.signal_filter(80, 80)
+       
+        # if data were not load from file thne continue
 
     def load_file(self):
         """Load file from OAMFile class"""
         return OAMFile.LoadFile().get_file()
 
-
-
     
-   
-       
-def main():
-    app = QtWidgets.QApplication(sys.argv)
-    main = MainWindow()
-    main.show()
-    sys.exit(app.exec_())
 
 
+
+app = QApplication(sys.argv)
 if __name__ == '__main__':
-    main()
+    window = MainWindow()
+    sys.exit(app.exec_())
