@@ -1,17 +1,19 @@
 import pandas as pd
 import OAMFile
+from PyQt5 import QtWidgets
+import sys 
 
 class DataAnalysis:
     def __init__(self):
-        load_file = OAMFile.LoadFile()
-        self.df = load_file.get_file()
+        #load_file = OAMFile.LoadFile()
+        #self.df = load_file.get_file()
         #self.df = pd.read_csv('/Users/igorkiss/Documents/Igor Personal/Data/VAP2.csv', encoding='unicode_escape', skiprows=1, usecols=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13]).dropna()
-        self.df['DateTime'] = pd.to_datetime(self.df['DateTime'])
-        self.df.set_index('DateTime', inplace=True)
-        self.df.columns = self.df.columns.str.replace(' ', '_')
-        self.modes = self.df['O2_Mode'].unique()
-        
-        
+        #self.df['DateTime'] = pd.to_datetime(self.df['DateTime'])
+        #self.df.set_index('DateTime', inplace=True)
+        #self.df.columns = self.df.columns.str.replace(' ', '_')
+        #self.modes = self.df['O2_Mode'].unique()
+        data = OAMFile.LoadFile()
+        self.df = data.df
         
     def signal_filter(self, min_signal, min_spo2):
         """Filter DataFrame by signal strength and SpO2"""
@@ -34,20 +36,10 @@ class DataAnalysis:
         for i, item in enumerate(df_p.index):
             ticks.append((xval[i], item))
         return [ticks]
-   
 
-
-
-
-
-
-
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
     
     
-      
-    
-
-    
-
-
+    sys.exit(app.exec_())
 
