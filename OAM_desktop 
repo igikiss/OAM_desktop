@@ -90,7 +90,8 @@ class MainWindow(QMainWindow):
         """Load file from OAMFile class"""
         return OAMFile.LoadFile().get_file()
 
-    
+    data = OAMDataMan.DataAnalysis()
+
 
 
 
