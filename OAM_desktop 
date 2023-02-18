@@ -73,7 +73,20 @@ class MainWindow(QMainWindow):
         self.bar_plot_2.setClipToView(True)
         self.bar_plot_2.setAntialiasing(True)
         self.bar_plot_2.setLimits(xMin=0, xMax=100, yMin=0, yMax=100)
-        
+
+        self.table = QtWidgets.QTableWidget(self)
+        self.table.move(1000, 150)
+        self.table.resize(500, 300)
+        self.table.setRowCount(6)
+        self.table.setColumnCount(2)
+        self.table.setHorizontalHeaderLabels(['Parameter', 'Value'])
+        self.table.verticalHeader().setVisible(False)
+        self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+      
+
+
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 500, 1800, 250)
         self.pw.showGrid(x=True, y=True)
