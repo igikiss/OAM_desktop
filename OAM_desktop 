@@ -114,7 +114,8 @@ class MainWindow(QMainWindow):
         self.bar_plot_1.addItem(bar_plot)
 
      
-        bar_plot_2 = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
+        bar_plot_2 = pg.BarGraphItem(x=OAMDataMan.df_d.index, height=OAMDataMan.df_d['Percentage'], width=0.5)
+        self.bar_plot_2.addItem(bar_plot_2)
     
  
        
@@ -126,11 +127,6 @@ class MainWindow(QMainWindow):
 
   
 
-   
-
-        
-
-    
 
 app = QApplication(sys.argv)
 if __name__ == '__main__':
