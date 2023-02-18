@@ -213,15 +213,10 @@ class MainWindow(QtWidgets.QMainWindow):
         #self.pw.plot(df_m['SpO2'], pen='b', name='Manual')
         self.pw_2.plot(df_a['PI'], pen='b', name='/erfusiion index')
     
-    #add data to pie chart
-        self.pie_chart.add_data([df_avg_a, df_avg_m], ['Auto', 'Manual'])
-        self.pie_chart.update()
-
-
         
-            
 
 
+    
 def main():
     app = QtWidgets.QApplication(sys.argv)
     main =MainWindow()

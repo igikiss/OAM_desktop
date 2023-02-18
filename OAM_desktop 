@@ -5,6 +5,7 @@ from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
 import OAMDataMan 
 import pyqtgraph as pg
+import pandas as pd
 
 
 
@@ -61,6 +62,18 @@ class MainWindow(QMainWindow):
         self.bar_plot_1.setAntialiasing(True)
         self.bar_plot_1.setLimits(xMin=0, xMax=100, yMin=0, yMax=100)
 
+        self.bar_plot_2 = pg.PlotWidget(self)
+        self.bar_plot_2.move(650, 150)
+        self.bar_plot_2.resize(300, 300)
+        self.bar_plot_2.setBackground('w')
+        self.bar_plot_2.showGrid(x=True, y=True)
+        self.bar_plot_2.setMouseEnabled(x=False, y=False)
+        self.bar_plot_2.setMenuEnabled(False)
+        self.bar_plot_2.setLogMode(x=False, y=False)
+        self.bar_plot_2.setClipToView(True)
+        self.bar_plot_2.setAntialiasing(True)
+        self.bar_plot_2.setLimits(xMin=0, xMax=100, yMin=0, yMax=100)
+        
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 500, 1800, 250)
         self.pw.showGrid(x=True, y=True)
@@ -78,22 +91,46 @@ class MainWindow(QMainWindow):
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
-      
-        #bar_graph = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
-        #self.bar_plot_1.getAxis('bottom').setTicks(ticks)
-        #self.bar_plot_1.addItem(bar_graph)
 
+        def plot_c(chart, df, column, pen, name):
+            """Plot a column from a dataframe on a chart"""
+            chart.plot(df[column], pen=pen, name=name)
+
+        plot_c(self.pw, OAMDataMan.df, 'SpO2', 'r', 'SpO2')
+        plot_c(self.pw2, OAMDataMan.df, 'O2', 'b', 'O2')
+
+        df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
+        df_p.columns = ['Percentage']
+        df_p.index.name = 'O2_Mode'
        
-        # if data were not load from file thne continue
+        xval = list(range(1,len(df_p['Percentage'])+1))
+        ticks=[]
+        for i, item in enumerate(df_p.index):
+            ticks.append( (xval[i], item) )
+        ticks = [ticks]
 
-    def load_file(self):
-        """Load file from OAMFile class"""
-        return OAMFile.LoadFile().get_file()
+        bar_plot = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
+        self.bar_plot_1.getAxis('bottom').setTicks(ticks)
+        self.bar_plot_1.addItem(bar_plot)
 
-    data = OAMDataMan.DataAnalysis()
+     
+        bar_plot_2 = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
+    
+ 
+       
 
+        
+    def load_file():
+        """Load a CSV file into a dataframe"""
+        return OAMFile.CSV_Load()
 
+  
 
+   
+
+        
+
+    
 
 app = QApplication(sys.argv)
 if __name__ == '__main__':
