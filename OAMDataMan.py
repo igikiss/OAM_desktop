@@ -11,7 +11,7 @@ def dat_verify():
         #self.df.set_index('DateTime', inplace=True)
         #self.df.columns = self.df.columns.str.replace(' ', '_')
         #self.modes = self.df['O2_Mode'].unique()
-        loader = OAMFile.DataFrameLoader(file_path='/Users/igorkiss/Documents/Igor Personal/Data/VAP2.csv')
+        loader = OAMFile.CSV_Load(file_path='/Users/igorkiss/Documents/Igor Personal/Data/VAP2.csv')
         df = loader.load_file()
 
         # raise Exception if DataFrame is empty or None
@@ -47,12 +47,13 @@ def percentage(df, column):
 df_c = percentage(df, 'O2_Mode')
 print(df_c)
 
-def get_ticks(df, column):
-    df_p = pd.DataFrame(percentage(column))
-    df_p.columns = ['Percentage']
-    df_p.index.name = column
-    xval = list(range(1, len(df_p['Percentage']) + 1))
-    ticks = []
-    for i, item in enumerate(df_p.index):
-        ticks.append((xval[i], item))
-    return [ticks]
+# calculating O2 distribution from filtered data frame, rounding to 0 decimal places and removing values less than 1%
+df_d = pd.DataFrame(percentage(df_a, 'O2').round(0))
+df_d = df_d[df_d['O2'] >= 1]
+df_d.index.name = 'O2'
+df_d.columns = ['Percentage']
+print(df_d)
+
+
+
+

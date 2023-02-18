@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QFileDialog
 import sys
 
 @dataclass
-class DataFrameLoader:
+class CSV_Load:
     file_path: str
     
     def load_file(self):
