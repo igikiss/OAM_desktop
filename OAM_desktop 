@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame, QCheckBox
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
         self.l_button.clicked.connect(self.load_file)
         self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.pdf_button = QPushButton('Export PDF', self)
+        self.pdf_button = QPushButton('take a Screenshot', self)
         self.pdf_button.move(50, 200)
         self.pdf_button.resize(200, 50)
         self.pdf_button.setFont(QFont('Arial', 20, QFont.Bold))
@@ -111,6 +111,22 @@ class MainWindow(QMainWindow):
         self.pw.addLegend()
         self.pw.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
+        self.checbox = QCheckBox('Flow', self)
+        self.checbox.move(50, 750)
+        self.checbox.resize(200, 50)    
+        self.checbox.setFont(QFont('Arial', 20, QFont.Bold))
+        self.checbox.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.checbox.stateChanged.connect(self.check_box)
+
+        self.checbox_2 = QCheckBox('FiO2', self)
+        self.checbox_2.move(120, 750)
+        self.checbox_2.resize(200, 50)
+        self.checbox_2.setFont(QFont('Arial', 20, QFont.Bold))  
+        self.checbox_2.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.checbox_2.stateChanged.connect(self.check_box)
+
+
+
         self.pw2 = pg.PlotWidget(self, background='w')
         self.pw2.setGeometry(50, 800, 1800, 250)
         self.pw2.showGrid(x=True, y=True)
@@ -123,7 +139,19 @@ class MainWindow(QMainWindow):
             chart.plot(df[column], pen=pen, name=name)
 
         plot_c(self.pw, OAMDataMan.df, 'SpO2', 'r', 'SpO2')
-        plot_c(self.pw2, OAMDataMan.df, 'O2', 'b', 'O2')
+        #plot_c(self.pw2, OAMDataMan.df, 'O2', 'b', 'O2')
+
+    def check_box(self):
+        if self.checbox.isChecked():
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_a['Flow_(L/min)'], pen='g', name='Flow')
+        if self.checbox_2.isChecked():
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_a['PR'], pen='g', name='Pulse Rate')
+        else:
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_a['O2'], pen='g', name='FiO2')
+           
 
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
         df_p.columns = ['Percentage']
@@ -165,19 +193,12 @@ class MainWindow(QMainWindow):
    # create screen shot of the window and opne the dialog box to save it
 
     def take_screenshot(self):
-        # get the primary screen
         screen = QtGui.QGuiApplication.primaryScreen()
-
-        # take a screenshot
         pixmap = screen.grabWindow(0)
-
-        # prompt the user to choose a file name and location
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getSaveFileName(
             self, "Save Screenshot", "", "PNG Files (*.png)", options=options
         )
-
-        # save the screenshot as a PNG file
         if file_name:
             pixmap.save(file_name, "PNG")
 
