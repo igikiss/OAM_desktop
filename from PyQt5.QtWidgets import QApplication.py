@@ -62,12 +62,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.roll_box.addItem("Graph_2")
         
        
-        #self.label_2 = QLabel(self)
-        #self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
-        #self.label_2.setLineWidth(2)
-        #self.label_2.resize(200, 100)
-        #self.label_2.move(50, 50)
-        #self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label_2 = QLabel(self)
+        self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
+        self.label_2.setLineWidth(2)
+        self.label_2.resize(200, 100)
+        self.label_2.move(50, 50)
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         #self.label_3 = QLabel(self)
         #self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
@@ -191,9 +191,9 @@ class MainWindow(QtWidgets.QMainWindow):
       
 
   
-        #self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{avarage_value(df_a, 'O2')}</p>")
-        #self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        #self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{avarage_value(df_a, 'O2')}</p>")
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         #self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{elapsed_time(df_a)}</p>")
         #self.label_3.setAlignment(QtCore.Qt.AlignCenter)
