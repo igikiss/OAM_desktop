@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
@@ -130,6 +130,15 @@ class MainWindow(QMainWindow):
         bar_plot_2 = pg.BarGraphItem(x=OAMDataMan.df_d.index, height=OAMDataMan.df_d['Percentage'], width=0.5)
         self.bar_plot_2.addItem(bar_plot_2)
     
+
+
+
+        for i, row in OAMDataMan.table_val.iterrows():
+            param_item = QTableWidgetItem(row['Parameter'])
+            value_item = QTableWidgetItem(str(row['Value']))
+            self.table.setItem(i, 0, param_item)
+            self.table.setItem(i, 1, value_item)
+
  
        
 
