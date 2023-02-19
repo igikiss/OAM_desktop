@@ -16,7 +16,3 @@ class CSV_Load:
         modes = df['O2_Mode'].unique()
 
         return df
-
-
-
-
