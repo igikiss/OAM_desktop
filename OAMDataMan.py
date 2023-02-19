@@ -1,5 +1,6 @@
 import pandas as pd
 import OAMFile
+from datetime import timedelta
 
 
 def dat_verify():
@@ -52,19 +53,22 @@ df_d = df_d[df_d['O2'] >= 1]
 df_d.index.name = 'O2'
 df_d.columns = ['Percentage']
 print(df_d)
-
+#TABLE
 # claculate last 25% of O2 values from filtered data frame
 df_e = df_a['O2'].quantile(0.75)
-print(df_e)
 # calculate avarage O2 value from filtered data frame
 df_f = df_a['O2'].mean()
-print(df_f)
 # calculate first 75% of O2 values from filtered data frame
 df_g = df_a['O2'].quantile(0.25)
-print(df_g)
-
+# creates a data frame with the calculated values
 table_val = pd.DataFrame({'Parameter': ['Last 25% of O2', 'Average O2', 'First 75% of O2'], 'Value': [df_e, df_f, df_g]})
 print(table_val)
+
+
+def elapsed_time(dff):
+    count = int(dff['O2'].count())
+    return timedelta(seconds=count)
+
 
 
 
