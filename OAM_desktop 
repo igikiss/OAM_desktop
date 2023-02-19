@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         self.pdf_button.resize(200, 50)
         self.pdf_button.setFont(QFont('Arial', 20, QFont.Bold))
         self.pdf_button.setStyleSheet("background-color: rgb(30, 195, 225);")
-        #self.pdf_button.clicked.connect(self.export_pdf)
+        self.pdf_button.clicked.connect(self.take_screenshot)
         self.pdf_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.bar_plot_1 = pg.PlotWidget(self)
@@ -150,10 +150,36 @@ class MainWindow(QMainWindow):
             self.table.setItem(i, 0, param_item)
             self.table.setItem(i, 1, value_item)
 
+        self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{OAMDataMan.table_val.loc[1, 'Value']}%</p>")
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+        self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{OAMDataMan.elapsed_time(OAMDataMan.df_a)}</p>")
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
  
     def load_file():
         """Load a CSV file into a dataframe"""
         return OAMFile.CSV_Load()
+
+   # create screen shot of the window and opne the dialog box to save it
+
+    def take_screenshot(self):
+        # get the primary screen
+        screen = QtGui.QGuiApplication.primaryScreen()
+
+        # take a screenshot
+        pixmap = screen.grabWindow(0)
+
+        # prompt the user to choose a file name and location
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getSaveFileName(
+            self, "Save Screenshot", "", "PNG Files (*.png)", options=options
+        )
+
+        # save the screenshot as a PNG file
+        if file_name:
+            pixmap.save(file_name, "PNG")
 
   
 app = QApplication(sys.argv)
