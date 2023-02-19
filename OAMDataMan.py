@@ -68,7 +68,7 @@ print(table_val)
 def elapsed_time(dff):
     count = int(dff['O2'].count())
     return timedelta(seconds=count)
-
+print(df_a.columns)
 
 
 
