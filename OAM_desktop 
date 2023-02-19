@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
@@ -77,15 +77,28 @@ class MainWindow(QMainWindow):
         self.table = QtWidgets.QTableWidget(self)
         self.table.move(1000, 150)
         self.table.resize(500, 300)
-        self.table.setRowCount(6)
+        self.table.setRowCount(9)
         self.table.setColumnCount(2)
         self.table.setHorizontalHeaderLabels(['Parameter', 'Value'])
         self.table.verticalHeader().setVisible(False)
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-      
 
+        self.label_2 = QLabel(self)
+        self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
+        self.label_2.setLineWidth(2)
+        self.label_2.resize(200, 100)
+        self.label_2.move(1600, 150)
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+        self.label_3 = QLabel(self)
+        self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
+        self.label_3.setLineWidth(2)
+        self.label_3.resize(200, 100)
+        self.label_3.move(1600, 350)
+        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
+      
 
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 500, 1800, 250)
@@ -130,9 +143,7 @@ class MainWindow(QMainWindow):
         bar_plot_2 = pg.BarGraphItem(x=OAMDataMan.df_d.index, height=OAMDataMan.df_d['Percentage'], width=0.5)
         self.bar_plot_2.addItem(bar_plot_2)
     
-
-
-
+# Loop to fill the table from the dataframe in OAMDataMan
         for i, row in OAMDataMan.table_val.iterrows():
             param_item = QTableWidgetItem(row['Parameter'])
             value_item = QTableWidgetItem(str(row['Value']))
@@ -140,16 +151,11 @@ class MainWindow(QMainWindow):
             self.table.setItem(i, 1, value_item)
 
  
-       
-
-        
     def load_file():
         """Load a CSV file into a dataframe"""
         return OAMFile.CSV_Load()
 
   
-
-
 app = QApplication(sys.argv)
 if __name__ == '__main__':
     window = MainWindow()
