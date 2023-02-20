@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame, QCheckBox, QRadioButton, QButtonGroup
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor, QImage
 import OAMFile
 import OAMDataMan 
 import pyqtgraph as pg
@@ -21,6 +21,14 @@ class MainWindow(QMainWindow):
         self.setGeometry(0, 0, self.width, self.height)
         self.InitWindow()
         self.showMaximized()
+        # set a background image
+        oImage = QImage("background.png")
+        sImage = oImage.scaled(QtCore.QSize(self.width, self.height))  # resize Image to widgets size
+        palette = QtGui.QPalette()
+        palette.setBrush(10, QtGui.QBrush(sImage))  # 10 = Windowrole
+        self.setPalette(palette)
+        self.show()
+
 
     def InitWindow(self):
         self.setWindowTitle(self.title)
