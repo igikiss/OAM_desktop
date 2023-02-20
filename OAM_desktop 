@@ -42,7 +42,9 @@ class MainWindow(QMainWindow):
         self.l_button.clicked.connect(self.load_file)
         self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.pdf_button = QPushButton('take a Screenshot', self)
+        self.pdf_button = QPushButton('', self)
+        self.pdf_button.setIcon(QIcon('snap.png'))
+        self.pdf_button.setIconSize(QtCore.QSize(200, 50))
         self.pdf_button.move(50, 200)
         self.pdf_button.resize(200, 50)
         self.pdf_button.setFont(QFont('Arial', 20, QFont.Bold))
