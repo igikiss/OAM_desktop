@@ -140,10 +140,9 @@ class MainWindow(QMainWindow):
             """Plot a column from a dataframe on a chart"""
             chart.plot(df[column], pen=pen, name=name)
 
-        plot_c(self.pw, OAMDataMan.df_x, '', 'r', 'SpO2')
-      
-
-    
+        self.pw.plot(OAMDataMan.roll, pen=pg.mkPen('r', width=2), name='O2')
+     
+     # Calculating the O2 Distribution bar graph
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
         df_p.columns = ['Percentage']
         df_p.index.name = 'O2_Mode'

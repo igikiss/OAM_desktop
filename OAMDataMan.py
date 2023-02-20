@@ -39,17 +39,6 @@ def filter_o2_mode(df, mode):
 df_filter_a = filter_o2_mode(df_filter, 'Auto')
 print(df_filter_a)
 
-# create function to calculate rolling average from filtered data frame and replace NaN values with 0
-def rolling_avg(df, column, window):
-    """Calculate rolling average"""
-    return df[column].rolling(window).mean().fillna(0)
-
-roll = rolling_avg(df_filter_a, 'SpO2', 10)
-print(roll)
-
-
-
-
 def percentage(df, column):
     """Calculate percentage of unique values in a column"""
     return df[column].value_counts(normalize=True) * 100
@@ -79,7 +68,14 @@ def elapsed_time(dff):
     count = int(dff['O2'].count())
     return timedelta(seconds=count)
 
-print(df_filter_a.columns)
+def rolling_mean(df, column, window, mena_value):
+    """Calculate rolling mean"""
+    return df[column].rolling(window).mean().fillna(mena_value).round(0)
+
+roll = rolling_mean(df_filter_a, 'O2', 24, df_f)
+print(roll)
+
+
 
 
 
