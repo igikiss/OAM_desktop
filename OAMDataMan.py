@@ -24,15 +24,13 @@ def dat_verify():
         return df
 
 df = dat_verify()
-print(df)
         
 def signal_filter(df, min_signal, min_spo2):
 
     """Filter DataFrame by signal strength and SpO2"""
     return df[(df['Signal_I/Q'] >= min_signal) & (df['SpO2'] >= min_spo2)]
 
-df_filter = signal_filter(df, 90, 90)
-print(df_filter)
+df_filter = signal_filter(df, 80, 50)
 
 def filter_o2_mode(df, mode):
     """Filter DataFrame by O2 mode"""
@@ -41,13 +39,16 @@ def filter_o2_mode(df, mode):
 df_filter_a = filter_o2_mode(df_filter, 'Auto')
 print(df_filter_a)
 
-#create a functionn to calculate mean of a column in 12 hour intervals
-def mean_stat(df, column, time):
-    """Calculate mean of a column in given intervals"""
-    return df[column].resample(time).mean()
+# create function to calculate rolling average from filtered data frame and replace NaN values with 0
+def rolling_avg(df, column, window):
+    """Calculate rolling average"""
+    return df[column].rolling(window).mean().fillna(0)
 
-df_mean = mean_stat(df_filter_a, 'O2', '12H')
-print(df_mean)
+roll = rolling_avg(df_filter_a, 'SpO2', 10)
+print(roll)
+
+
+
 
 def percentage(df, column):
     """Calculate percentage of unique values in a column"""
@@ -56,7 +57,7 @@ df_c = percentage(df, 'O2_Mode')
 print(df_c)
 
 # calculating O2 distribution from filtered data frame, rounding to 0 decimal places and removing values less than 1%
-df_d = pd.DataFrame(percentage(df_a, 'O2').round(0))
+df_d = pd.DataFrame(percentage(df_filter, 'O2').round(0))
 df_d = df_d[df_d['O2'] >= 1]
 df_d.index.name = 'O2'
 df_d.columns = ['Percentage']
@@ -77,7 +78,10 @@ def elapsed_time(dff):
     """Calculate elapsed time in seconds"""
     count = int(dff['O2'].count())
     return timedelta(seconds=count)
-print(df.columns)
+
+print(df_filter_a.columns)
+
+
 
 
 

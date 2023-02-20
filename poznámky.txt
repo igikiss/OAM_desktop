@@ -2,11 +2,12 @@
 - Vymazať predošlé dáta keď sa znova stlačí tla LOAD
 - Všetky widgety by mali byť prispôsobené k veľkosti okna
 - Vymyslieť zaujímavé štastiky ...
-- Vytvoriť PDF ako print screen z obrazovky
-- Pridať table na zobrazenie štastiky?
+- Vytvoriť print screen z obrazovky = OK
+- Pridať table na zobrazenie štastiky = OK
 - ktoré dáta do tabuľky? 
-- grafy posledných 25% percent terapie vs 75% úredošlých terapie
-- bar graf na zobrazenie distribucie O2 módov a hladiny FIO2 
+- grafy posledných 25% percent terapie vs 75% úredošlých terapie = OK
+- bar graf na zobrazenie distribucie O2 módov a hladiny FIO2 = OK
 - K-Means clustering
 - uložiť všetky dáta do databázy a vytvoriť grafy z databázy (Azure)
 - Conditional probability
+- Vytvoriť Scatter plot FiO2 vs Pulse Rate

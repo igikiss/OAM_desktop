@@ -140,8 +140,8 @@ class MainWindow(QMainWindow):
             """Plot a column from a dataframe on a chart"""
             chart.plot(df[column], pen=pen, name=name)
 
-        plot_c(self.pw, OAMDataMan.df, 'SpO2', 'r', 'SpO2')
-        #plot_c(self.pw2, OAMDataMan.df, 'O2', 'b', 'O2')
+        plot_c(self.pw, OAMDataMan.df_x, '', 'r', 'SpO2')
+      
 
     
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
@@ -173,17 +173,17 @@ class MainWindow(QMainWindow):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
 
-        self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{OAMDataMan.elapsed_time(OAMDataMan.df_a)}</p>")
+        self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{OAMDataMan.elapsed_time(OAMDataMan.df_filter_a)}</p>")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
     
     def check_box(self):
         self.pw2.clear()
         if self.checbox.isChecked():
-            self.pw2.plot(OAMDataMan.df['Flow_(L/min)'], pen='b', name='Flow')
+            self.pw2.plot(OAMDataMan.df_filter['Flow_(L/min)'], pen='b', name='Flow')
             self.pw2.setLabel('left', 'Flow', units='L/min')
         if self.checbox_2.isChecked():
-            self.pw2.plot(OAMDataMan.df['PR'], pen='b', name='Pulse Rate')
+            self.pw2.plot(OAMDataMan.df_filter['PR'], pen='b', name='Pulse Rate')
             self.pw2.setLabel('left', 'Pulse Rate', units='bpm')
  
     def load_file():
