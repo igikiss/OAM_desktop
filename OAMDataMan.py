@@ -31,15 +31,23 @@ def signal_filter(df, min_signal, min_spo2):
     """Filter DataFrame by signal strength and SpO2"""
     return df[(df['Signal_I/Q'] >= min_signal) & (df['SpO2'] >= min_spo2)]
 
-df_a = signal_filter(df, 90, 90)
-print(df_a)
+df_filter = signal_filter(df, 90, 90)
+print(df_filter)
 
 def filter_o2_mode(df, mode):
     """Filter DataFrame by O2 mode"""
     return df[df['O2_Mode'] == mode] 
 
-df_b = filter_o2_mode(df_a, 'Auto')
-print(df_b)
+df_filter_a = filter_o2_mode(df_filter, 'Auto')
+print(df_filter_a)
+
+#create a functionn to calculate mean of a column in 12 hour intervals
+def mean_stat(df, column, time):
+    """Calculate mean of a column in given intervals"""
+    return df[column].resample(time).mean()
+
+df_mean = mean_stat(df_filter_a, 'O2', '12H')
+print(df_mean)
 
 def percentage(df, column):
     """Calculate percentage of unique values in a column"""
@@ -55,20 +63,21 @@ df_d.columns = ['Percentage']
 print(df_d)
 #TABLE
 # claculate last 25% of O2 values from filtered data frame
-df_e = df_a['O2'].quantile(0.75)
+df_e = df_filter['O2'].quantile(0.75)
 # calculate avarage O2 value from filtered data frame
-df_f = df_a['O2'].mean()
+df_f = df_filter['O2'].mean()
 # calculate first 75% of O2 values from filtered data frame
-df_g = df_a['O2'].quantile(0.25)
+df_g = df_filter['O2'].quantile(0.25)
 # creates a data frame with the calculated values
 table_val = pd.DataFrame({'Parameter': ['Last 25% of O2', 'Average O2', 'First 75% of O2'], 'Value': [df_e, df_f, df_g]})
 print(table_val)
 
 
 def elapsed_time(dff):
+    """Calculate elapsed time in seconds"""
     count = int(dff['O2'].count())
     return timedelta(seconds=count)
-print(df_a.columns)
+print(df.columns)
 
 
 
