@@ -58,8 +58,12 @@ df_e = df_filter['O2'].quantile(0.75)
 df_f = df_filter['O2'].mean()
 # calculate first 75% of O2 values from filtered data frame
 df_g = df_filter['O2'].quantile(0.25)
+#calculate Perfusion Index quantiles
+df_h = df_filter['PI'].quantile(0.25)
+df_i = df_filter['PI'].quantile(0.75)
 # creates a data frame with the calculated values
-table_val = pd.DataFrame({'Parameter': ['Last 25% of O2', 'Average O2', 'First 75% of O2'], 'Value': [df_e, df_f, df_g]})
+table_val = pd.DataFrame({'Parameter': ['Last 25% of O2', 'Average O2', 'First 75% of O2', 'Temperature(°C)'], 
+                        'Value': [df_filter_a['O2'].quantile(0.75), df_filter_a['O2'].mean(), df_filter_a['O2'].quantile(0.25), df_filter_a['Temp_(°C)'].mean()]})
 print(table_val)
 
 
@@ -72,19 +76,7 @@ def rolling_mean(df, column, window, mena_value):
     """Calculate rolling mean"""
     return df[column].rolling(window).mean().fillna(mena_value).round(0)
 
-roll = rolling_mean(df_filter_a, 'O2', 24, df_f)
-print(roll)
-
-
-
-
-
-
-
-
-
-
-
-
-
+roll_O2 = rolling_mean(df_filter_a, 'O2', '12H', df_f)
+roll_SpO2 = rolling_mean(df_filter_a, 'SpO2', '12H', df_filter_a['SpO2'].mean())
+roll_Pulse = rolling_mean(df_filter_a, 'PR', '12H', df_filter_a['PR'].mean())
 

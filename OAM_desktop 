@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame, QCheckBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame, QCheckBox, QRadioButton
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor
 import OAMFile
@@ -111,19 +111,31 @@ class MainWindow(QMainWindow):
         self.pw.addLegend()
         self.pw.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
-        self.checbox = QCheckBox('Flow', self)
-        self.checbox.move(50, 750)
-        self.checbox.resize(200, 50)    
-        self.checbox.setFont(QFont('Arial', 20, QFont.Bold))
-        self.checbox.setStyleSheet("background-color: rgb(30, 195, 225);")
-        self.checbox.stateChanged.connect(self.check_box)
+        self.radio_button_1 = QRadioButton('Flow', self)
+        self.radio_button_1.move(50, 750)
+        self.radio_button_1.resize(200, 50)    
+        self.radio_button_1.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_1.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.radio_button_1.toggled.connect(self.check_box)
+        self.radio_button_1.setChecked(True)
+        self.radio_button_1.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.checbox_2 = QCheckBox('Pulse Rate', self)
-        self.checbox_2.move(120, 750)
-        self.checbox_2.resize(200, 50)
-        self.checbox_2.setFont(QFont('Arial', 20, QFont.Bold))  
-        self.checbox_2.setStyleSheet("background-color: rgb(30, 195, 225);")
-        self.checbox_2.stateChanged.connect(self.check_box)
+        self.radio_button_2 = QRadioButton('Pulse Rate', self)
+        self.radio_button_2.move(120, 750)
+        self.radio_button_2.resize(200, 50)
+        self.radio_button_2.setFont(QFont('Arial', 20, QFont.Bold))  
+        self.radio_button_2.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.radio_button_2.toggled.connect(self.check_box)
+        self.radio_button_2.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+
+
+        self.radio_button_3 = QRadioButton('1 min', self)
+        self.radio_button_3.move(250, 750)
+        self.radio_button_3.resize(200, 50)
+        self.radio_button_3.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_3.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.radio_button_3.toggled.connect(self.check_box)
+        self.radio_button_3.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
 
         self.pw2 = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
@@ -140,7 +152,7 @@ class MainWindow(QMainWindow):
             """Plot a column from a dataframe on a chart"""
             chart.plot(df[column], pen=pen, name=name)
 
-        self.pw.plot(OAMDataMan.roll, pen=pg.mkPen('r', width=2), name='O2')
+        self.pw.plot(OAMDataMan.roll_Pulse, pen=pg.mkPen('r', width=2), name='O2')
      
      # Calculating the O2 Distribution bar graph
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
@@ -178,12 +190,14 @@ class MainWindow(QMainWindow):
     
     def check_box(self):
         self.pw2.clear()
-        if self.checbox.isChecked():
+        if self.radio_button_1.isChecked():
             self.pw2.plot(OAMDataMan.df_filter['Flow_(L/min)'], pen='b', name='Flow')
             self.pw2.setLabel('left', 'Flow', units='L/min')
-        if self.checbox_2.isChecked():
-            self.pw2.plot(OAMDataMan.df_filter['PR'], pen='b', name='Pulse Rate')
+        if self.radio_button_2.isChecked():
+            self.pw2.plot(OAMDataMan.roll_O2, pen='b', name='Pulse Rate')
             self.pw2.setLabel('left', 'Pulse Rate', units='bpm')
+        if self.radio_button_3.isChecked():
+            self.pw2.plot(OAMDataMan.roll_Pulse, pen='b', name='Flow')
  
     def load_file():
         """Load a CSV file into a dataframe"""
