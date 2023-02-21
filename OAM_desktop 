@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
         self.InitWindow()
         self.showMaximized()
         # set a background image
-        oImage = QImage("background.jpg")
+        oImage = QImage("background.png")
         sImage = oImage.scaled(QtCore.QSize(self.width, self.height))  # resize Image to widgets size
         palette = QtGui.QPalette()
         palette.setBrush(QtGui.QPalette.Window, QtGui.QBrush(sImage)) 
@@ -44,7 +44,8 @@ class MainWindow(QMainWindow):
         self.l_button.move(50, 150)
         self.l_button.resize(200, 50)
         self.l_button.setFont(QFont('Arial', 20, QFont.Bold))
-        self.l_button.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.l_button.setStyleSheet("QPushButton {background-color: rgb(30, 195, 225);} \
+                                    QPushButton:pressed {border: 2px solid red;}")
         self.l_button.clicked.connect(self.load_file)
         self.l_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -54,7 +55,8 @@ class MainWindow(QMainWindow):
         self.snap_button.move(50, 250)
         self.snap_button.resize(200, 50)
         self.snap_button.setFont(QFont('Arial', 20, QFont.Bold))
-        self.snap_button.setStyleSheet("background-color: rgb(30, 195, 225);")
+        self.snap_button.setStyleSheet("QPushButton {background-color: rgb(30, 195, 225);} \
+                                        QPushButton:pressed {border: 2px solid red;}")
         self.snap_button.clicked.connect(self.take_screenshot)
         self.snap_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
