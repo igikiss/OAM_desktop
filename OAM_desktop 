@@ -21,7 +21,6 @@ class MainWindow(QMainWindow):
         self.setGeometry(0, 0, self.width, self.height)
         self.InitWindow()
         self.showMaximized()
-        # set a background image
         oImage = QImage("background.png")
         sImage = oImage.scaled(QtCore.QSize(self.width, self.height))  # resize Image to widgets size
         palette = QtGui.QPalette()
@@ -31,7 +30,7 @@ class MainWindow(QMainWindow):
     def InitWindow(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
-        
+  
         self.label = QLabel(self)
         self.label_1 = QLabel('VAPOTHERM OAM VIEWER', self)
         self.label_1.setFont(QFont('Arial', 40, QFont.Bold))
@@ -63,7 +62,7 @@ class MainWindow(QMainWindow):
         self.bar_plot_1 = pg.PlotWidget(self)
         self.bar_plot_1.move(300, 150)
         self.bar_plot_1.resize(300, 300)
-        self.bar_plot_1.setBackground('w')  
+        self.bar_plot_1.setBackground('#285180')
         self.bar_plot_1.showGrid(x=True, y=True)
         self.bar_plot_1.setMouseEnabled(x=False, y=False)
         self.bar_plot_1.setMenuEnabled(False)
@@ -75,7 +74,7 @@ class MainWindow(QMainWindow):
         self.bar_plot_2 = pg.PlotWidget(self)
         self.bar_plot_2.move(650, 150)
         self.bar_plot_2.resize(300, 300)
-        self.bar_plot_2.setBackground('w')
+        self.bar_plot_2.setBackground('#285180')
         self.bar_plot_2.showGrid(x=True, y=True)
         self.bar_plot_2.setMouseEnabled(x=False, y=False)
         self.bar_plot_2.setMenuEnabled(False)
@@ -89,7 +88,15 @@ class MainWindow(QMainWindow):
         self.table.resize(500, 300)
         self.table.setRowCount(9)
         self.table.setColumnCount(2)
+        self.table.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
         self.table.setHorizontalHeaderLabels(['Parameter', 'Value'])
+        # change the font of the table
+        font = QtGui.QFont()
+        font.setPointSize(14)   
+        self.table.setFont(font)
+        self.table.horizontalHeader().setStyleSheet("background-color: rgb(30, 195, 225); color: rgb(40, 81, 128);")
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.table.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.table.verticalHeader().setVisible(False)
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
@@ -100,16 +107,16 @@ class MainWindow(QMainWindow):
         self.label_2.setLineWidth(2)
         self.label_2.resize(200, 100)
         self.label_2.move(1600, 150)
-        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(30, 195, 225);")
 
         self.label_3 = QLabel(self)
         self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
         self.label_3.setLineWidth(2)
         self.label_3.resize(200, 100)
         self.label_3.move(1600, 350)
-        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(30, 195, 225);")
       
-        self.radio_button_4 = QRadioButton('Pressure', self)
+        self.radio_button_4 = QRadioButton('SpO2', self)
         self.radio_button_4.move(50, 450)
         self.radio_button_4.resize(200, 50)
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
@@ -144,6 +151,7 @@ class MainWindow(QMainWindow):
         self.pw.setLabel('bottom', 'Time', units='h')
         self.pw.enableAutoRange(axis='x', enable=True)
         self.pw.enableAutoRange(axis='y', enable=True)
+        self.pw.setBackground('#285180')
         self.pw.addLegend()
         self.pw.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
@@ -183,6 +191,7 @@ class MainWindow(QMainWindow):
         self.pw2.setLabel('bottom', 'Time', units='h')
         self.pw2.enableAutoRange(axis='x', enable=True)
         self.pw2.enableAutoRange(axis='y', enable=True)
+        self.pw2.setBackground('#285180')
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
@@ -221,17 +230,27 @@ class MainWindow(QMainWindow):
 
         self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{OAMDataMan.table_val.loc[1, 'Value']}%</p>")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label_2.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
 
         self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{OAMDataMan.elapsed_time(OAMDataMan.df_filter_a)}</p>")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
-    
-    def check_box(self):
+        self.label_3.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
+
+
+    def radiobutton1(self):
         self.pw2.clear()
         if self.radio_button_1.isChecked():
             self.pw2.plot(OAMDataMan.df_filter['Flow_(L/min)'], pen='b', name='Flow')
             self.pw2.setLabel('left', 'Flow', units='L/min')
+        self.pw2.plot(OAMDataMan.df_filter['Flow_(L/min)'], pen='b', name='Flow')
+        self.pw2.setLabel('left', 'Flow', units='L/min')
+    
+    def check_box(self):
+        self.pw2.clear()
+        if self.radio_button_4.isChecked():
+            self.pw2.plot(OAMDataMan.df_filter['SpO2'], pen='b', name='SpO2')
+            self.pw2.setLabel('left', 'SpO2', units='%')
+            
         if self.radio_button_2.isChecked():
             self.pw2.plot(OAMDataMan.roll_O2, pen='b', name='Pulse Rate')
             self.pw2.setLabel('left', 'Pulse Rate', units='bpm')
