@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
         self.bar_plot_1 = pg.PlotWidget(self)
         self.bar_plot_1.move(300, 150)
         self.bar_plot_1.resize(300, 300)
-        self.bar_plot_1.setBackground('#285180')
+        self.bar_plot_1.setBackground('transparent')
         self.bar_plot_1.showGrid(x=True, y=True)
         self.bar_plot_1.setMouseEnabled(x=False, y=False)
         self.bar_plot_1.setMenuEnabled(False)
@@ -120,7 +120,7 @@ class MainWindow(QMainWindow):
         self.radio_button_4.move(50, 450)
         self.radio_button_4.resize(200, 50)
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_4.setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(30, 195, 225);")
+        self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
        # self.radio_button_4.clicked.connect(self.pressure_plot)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
         self.radio_button_5.move(250, 450)
         self.radio_button_5.resize(200, 50)
         self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_5.setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(30, 195, 225);")
+        self.radio_button_5.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
          # self.radio_button_5.clicked.connect(self.temperature_plot)
         self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -136,7 +136,7 @@ class MainWindow(QMainWindow):
         self.radio_button_6.move(450, 450)
         self.radio_button_6.resize(200, 50)
         self.radio_button_6.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_6.setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(30, 195, 225);")
+        self.radio_button_6.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         # self.radio_button_6.clicked.connect(self.flow_plot)
         self.radio_button_6.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -159,7 +159,7 @@ class MainWindow(QMainWindow):
         self.radio_button_1.move(50, 750)
         self.radio_button_1.resize(200, 50)    
         self.radio_button_1.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_1.setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(30, 195, 225);")
+        self.radio_button_1.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
         self.radio_button_1.toggled.connect(self.check_box)
         self.radio_button_1.setChecked(True)
         self.radio_button_1.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
@@ -168,7 +168,7 @@ class MainWindow(QMainWindow):
         self.radio_button_2.move(120, 750)
         self.radio_button_2.resize(200, 50)
         self.radio_button_2.setFont(QFont('Arial', 20, QFont.Bold))  
-        self.radio_button_2.setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(30, 195, 225);")
+        self.radio_button_2.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
         self.radio_button_2.toggled.connect(self.check_box)
         self.radio_button_2.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         self.radio_button_3.move(250, 750)
         self.radio_button_3.resize(200, 50)
         self.radio_button_3.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_3.setStyleSheet("background-color: rgb(0, 0, 0); color: rgb(30, 195, 225);")
+        self.radio_button_3.setStyleSheet("background-color: rgb(40, 81 ,128); color: rgb(30, 195, 225);")
         self.radio_button_3.toggled.connect(self.check_box)
         self.radio_button_3.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
