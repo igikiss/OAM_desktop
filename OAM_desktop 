@@ -167,18 +167,18 @@ class MainWindow(QMainWindow):
         self.radio_button_4.resize(200, 50)    
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_4.toggled.connect(self.radiobutton1)
+        self.radio_button_4.toggled.connect(self.radiobutton2)
         self.radio_button_4.setChecked(True)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.radio_button_5 = QRadioButton('FiO2', self)
         self.radio_button_5.move(150, 750)
-        self.radio_button_5.resize(200, 50)
-        self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))  
+        self.radio_button_5.resize(200, 50)    
+        self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_5.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        #self.radio_button_5.toggled.connect(self.radiobutton2)
+        #self.radio_button_5.toggled.connect(self.radiobutton1)
         self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-
+        
         self.buttongroup = QButtonGroup()
         self.buttongroup.addButton(self.radio_button_4)
         self.buttongroup.addButton(self.radio_button_5)
@@ -253,12 +253,11 @@ class MainWindow(QMainWindow):
             self.pw.clear()
             self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
             self.pw.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
+      
+       
+    def radiobutton2(self):
         if self.radio_button_4.isChecked():
-            self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
-            self.pw2.setLabel('left', 'Flow', units='L/min')
-
-     
+            pass
 
     def load_file():
         """Load a CSV file into a dataframe"""

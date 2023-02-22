@@ -55,7 +55,7 @@ print(df_d)
 # claculate last 25% of O2 values from filtered data frame
 df_e = df_filter['O2'].quantile(0.75)
 # calculate avarage O2 value from filtered data frame
-df_f = df_filter['O2'].mean()
+df_f = df_filter['O2'].mean().round(0)
 # calculate first 75% of O2 values from filtered data frame
 df_g = df_filter['O2'].quantile(0.25)
 #calculate Perfusion Index quantiles
@@ -63,7 +63,7 @@ df_h = df_filter['PI'].quantile(0.25)
 df_i = df_filter['PI'].quantile(0.75)
 # creates a data frame with the calculated values
 table_val = pd.DataFrame({'Parameter': ['Last 25% of O2', 'Average O2', 'First 75% of O2', 'Temperature(°C)'], 
-                        'Value': [df_filter_a['O2'].quantile(0.75), df_filter_a['O2'].mean(), df_filter_a['O2'].quantile(0.25), df_filter_a['Temp_(°C)'].mean()]})
+                        'Value': [df_filter_a['O2'].quantile(0.75), df_f, df_filter_a['O2'].quantile(0.25), df_filter_a['Temp_(°C)'].mean()]})
 print(table_val)
 
 
