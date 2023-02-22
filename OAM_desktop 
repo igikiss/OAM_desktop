@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         self.bar_plot_2 = pg.PlotWidget(self)
         self.bar_plot_2.move(650, 150)
         self.bar_plot_2.resize(300, 300)
-        self.bar_plot_2.setBackground('#285180')
+        self.bar_plot_2.setBackground('transparent')
         self.bar_plot_2.showGrid(x=True, y=True)
         self.bar_plot_2.setMouseEnabled(x=False, y=False)
         self.bar_plot_2.setMenuEnabled(False)
@@ -84,13 +84,13 @@ class MainWindow(QMainWindow):
         self.bar_plot_2.setLimits(xMin=0, xMax=100, yMin=0, yMax=100)
 
         self.table = QtWidgets.QTableWidget(self)
-        self.table.move(1000, 150)
+        self.table.move(1050, 150)
         self.table.resize(500, 300)
         self.table.setRowCount(9)
         self.table.setColumnCount(2)
-        self.table.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
+        self.table.showGrid(x=True, y=True)
+        self.table.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.table.setHorizontalHeaderLabels(['Parameter', 'Value'])
-        # change the font of the table
         font = QtGui.QFont()
         font.setPointSize(14)   
         self.table.setFont(font)
@@ -107,43 +107,42 @@ class MainWindow(QMainWindow):
         self.label_2.setLineWidth(2)
         self.label_2.resize(200, 100)
         self.label_2.move(1600, 150)
-        self.label_2.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(30, 195, 225);")
 
         self.label_3 = QLabel(self)
         self.label_3.setFrameStyle(QFrame.Box | QFrame.Plain)
         self.label_3.setLineWidth(2)
         self.label_3.resize(200, 100)
         self.label_3.move(1600, 350)
-        self.label_3.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(30, 195, 225);")
       
-        self.radio_button_4 = QRadioButton('SpO2', self)
-        self.radio_button_4.move(50, 450)
-        self.radio_button_4.resize(200, 50)
-        self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-       # self.radio_button_4.clicked.connect(self.pressure_plot)
-        self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.radio_button_1 = QRadioButton('SpO2', self)
+        self.radio_button_1.move(50, 450)
+        self.radio_button_1.resize(200, 50)
+        self.radio_button_1.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_1.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+        self.radio_button_1.clicked.connect(self.radiobutton1)
+        self.radio_button_1.setChecked(True)
+        self.radio_button_1.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.radio_button_5 = QRadioButton('Temperature', self)
-        self.radio_button_5.move(250, 450)
-        self.radio_button_5.resize(200, 50)
-        self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_5.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-         # self.radio_button_5.clicked.connect(self.temperature_plot)
-        self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.radio_button_2 = QRadioButton('Pulse Rate', self)
+        self.radio_button_2.move(150, 450)
+        self.radio_button_2.resize(200, 50)
+        self.radio_button_2.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_2.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+        self.radio_button_2.clicked.connect(self.radiobutton1)
+        self.radio_button_2.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.radio_button_6 = QRadioButton('Flow', self) 
-        self.radio_button_6.move(450, 450)
-        self.radio_button_6.resize(200, 50)
-        self.radio_button_6.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_6.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        # self.radio_button_6.clicked.connect(self.flow_plot)
-        self.radio_button_6.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.radio_button_3 = QRadioButton('Perfusion index', self) 
+        self.radio_button_3.move(300, 450)
+        self.radio_button_3.resize(200, 50)
+        self.radio_button_3.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_3.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+        self.radio_button_3.clicked.connect(self.radiobutton1)
+        self.radio_button_3.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.buttongroup1 = QButtonGroup()
-        self.buttongroup1.addButton(self.radio_button_4)
-        self.buttongroup1.addButton(self.radio_button_5)
-        self.buttongroup1.addButton(self.radio_button_6)
+        self.buttongroup1.addButton(self.radio_button_1)
+        self.buttongroup1.addButton(self.radio_button_2)
+        self.buttongroup1.addButton(self.radio_button_3)
 
         self.pw = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw.setGeometry(50, 500, 1800, 250)
@@ -155,35 +154,35 @@ class MainWindow(QMainWindow):
         self.pw.addLegend()
         self.pw.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
-        self.radio_button_1 = QRadioButton('Flow', self)
-        self.radio_button_1.move(50, 750)
-        self.radio_button_1.resize(200, 50)    
-        self.radio_button_1.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_1.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_1.toggled.connect(self.check_box)
-        self.radio_button_1.setChecked(True)
-        self.radio_button_1.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.radio_button_4 = QRadioButton('Flow', self)
+        self.radio_button_4.move(50, 750)
+        self.radio_button_4.resize(200, 50)    
+        self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+        self.radio_button_4.toggled.connect(self.radiobutton2)
+        self.radio_button_4.setChecked(True)
+        self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.radio_button_2 = QRadioButton('Pulse Rate', self)
-        self.radio_button_2.move(120, 750)
-        self.radio_button_2.resize(200, 50)
-        self.radio_button_2.setFont(QFont('Arial', 20, QFont.Bold))  
-        self.radio_button_2.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_2.toggled.connect(self.check_box)
-        self.radio_button_2.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.radio_button_5 = QRadioButton('Pulse Rate', self)
+        self.radio_button_5.move(120, 750)
+        self.radio_button_5.resize(200, 50)
+        self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))  
+        self.radio_button_5.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+        self.radio_button_5.toggled.connect(self.radiobutton2)
+        self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.radio_button_3 = QRadioButton('1 min', self)
-        self.radio_button_3.move(250, 750)
-        self.radio_button_3.resize(200, 50)
-        self.radio_button_3.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_3.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_3.toggled.connect(self.check_box)
-        self.radio_button_3.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+        self.radio_button_6 = QRadioButton('1 min', self)
+        self.radio_button_6.move(250, 750)
+        self.radio_button_6.resize(200, 50)
+        self.radio_button_6.setFont(QFont('Arial', 20, QFont.Bold))
+        self.radio_button_6.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+        self.radio_button_6.toggled.connect(self.radiobutton2)
+        self.radio_button_6.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.buttongroup = QButtonGroup()
-        self.buttongroup.addButton(self.radio_button_1)
-        self.buttongroup.addButton(self.radio_button_2)
-        self.buttongroup.addButton(self.radio_button_3)
+        self.buttongroup.addButton(self.radio_button_4)
+        self.buttongroup.addButton(self.radio_button_5)
+        self.buttongroup.addButton(self.radio_button_6)
         
         self.pw2 = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw2.setGeometry(50, 800, 1800, 250)
@@ -196,12 +195,6 @@ class MainWindow(QMainWindow):
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
 
-        def plot_c(chart, df, column, pen, name):
-            """Plot a column from a dataframe on a chart"""
-            chart.plot(df[column], pen=pen, name=name)
-
-        self.pw.plot(OAMDataMan.roll_Pulse, pen=pg.mkPen({'color': '#ff58fb', 'width':2}), name='O2')
-     
      # Calculating the O2 Distribution bar graph
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
         df_p.columns = ['Percentage']
@@ -230,34 +223,48 @@ class MainWindow(QMainWindow):
             self.table.setItem(i, 0, param_item)
             self.table.setItem(i, 1, value_item)
 
-        self.label_2.setText(f"<p style='font-size:12pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{OAMDataMan.table_val.loc[1, 'Value']}%</p>")
+        self.label_2.setText(f"<p style='font-size:14pt'>Avarege FiO2 in Auto mode</p><p style='font-size:16pt'>{OAMDataMan.table_val.loc[1, 'Value']}%</p>")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
+        self.label_2.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
 
-        self.label_3.setText(f"<p style='font-size:12pt'>Time in Auto Mode</p><p style='font-size:16pt'>{OAMDataMan.elapsed_time(OAMDataMan.df_filter_a)}</p>")
+        self.label_3.setText(f"<p style='font-size:14pt'>Time in Auto Mode</p><p style='font-size:16pt'>{OAMDataMan.elapsed_time(OAMDataMan.df)}</p>")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
+        self.label_3.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
 
+        plot1 = self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
+        self.pw.plot(OAMDataMan.roll_SpO2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2 Rolling Average')
+        self.pw.setLabel('left', 'SpO2', units='%')
+        self.pw.addItem(plot1)
 
+        plot2 = self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
+        self.pw2.addItem(plot2)
+        
+        
     def radiobutton1(self):
-        self.pw2.clear()
         if self.radio_button_1.isChecked():
-            self.pw2.plot(OAMDataMan.df_filter['Flow_(L/min)'], pen='b', name='Flow')
-            self.pw2.setLabel('left', 'Flow', units='L/min')
-        self.pw2.plot(OAMDataMan.df_filter['Flow_(L/min)'], pen='b', name='Flow')
-        self.pw2.setLabel('left', 'Flow', units='L/min')
-    
-    def check_box(self):
-        self.pw2.clear()
-        if self.radio_button_4.isChecked():
-            self.pw2.plot(OAMDataMan.df_filter['SpO2'], pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2')
-            self.pw2.setLabel('left', 'SpO2', units='%')
-            
+            self.pw.clear()
+            self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
+            self.pw.plot(OAMDataMan.roll_SpO2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2 Rolling Average')
+            self.pw.setLabel('left', 'SpO2', units='%')
         if self.radio_button_2.isChecked():
-            self.pw2.plot(OAMDataMan.roll_O2, pen='b', name='Pulse Rate')
-            self.pw2.setLabel('left', 'Pulse Rate', units='bpm')
+            self.pw.clear()
+            self.pw.plot(OAMDataMan.df_filter_a['PR'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Pulse Rate')
+            self.pw.plot(OAMDataMan.roll_Pulse, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Pulse Rate Rolling Average')
+            self.pw.setLabel('left', 'BPM', units='bpm')
         if self.radio_button_3.isChecked():
-            self.pw2.plot(OAMDataMan.roll_Pulse, pen='b', name='Flow')
+            self.pw.clear()
+            self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
+            self.ow.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
+        
+    
+    def radiobutton2(self):
+        if self.radio_button_4.isChecked():
+            self.pw2.plot(OAMDataMan.df_filter_a['Flow(l/min)'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
+        if self.radio_button_5.isChecked():
+            pass
+          
+            
+     
  
     def load_file():
         """Load a CSV file into a dataframe"""
