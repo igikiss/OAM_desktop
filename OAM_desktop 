@@ -84,23 +84,31 @@ class MainWindow(QMainWindow):
         self.bar_plot_2.setLimits(xMin=0, xMax=100, yMin=0, yMax=100)
 
         self.table = QtWidgets.QTableWidget(self)
-        self.table.move(1050, 150)
+        self.table.move(1000, 150)
         self.table.resize(500, 300)
         self.table.setRowCount(9)
         self.table.setColumnCount(2)
-        self.table.showGrid(x=True, y=True)
-        self.table.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
+
+        self.table.setStyleSheet(
+    "background-color: transparent; color: rgb(30, 195, 225); border: 1px solid black;"
+)
+
         self.table.setHorizontalHeaderLabels(['Parameter', 'Value'])
         font = QtGui.QFont()
-        font.setPointSize(14)   
+        font.setPointSize(16)   
         self.table.setFont(font)
-        self.table.horizontalHeader().setStyleSheet("background-color: rgb(30, 195, 225); color: rgb(40, 81, 128);")
+        self.table.horizontalHeader().setStyleSheet(
+    "background-color: rgb(30, 195, 225); color: rgb(40, 81, 128); font-size: 20pt;"
+)
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.table.verticalHeader().setStyleSheet("background-color: transparent; border: none;")
         self.table.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.table.verticalHeader().setVisible(False)
+
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
 
         self.label_2 = QLabel(self)
         self.label_2.setFrameStyle(QFrame.Box | QFrame.Plain)
@@ -254,7 +262,7 @@ class MainWindow(QMainWindow):
         if self.radio_button_3.isChecked():
             self.pw.clear()
             self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
-            self.ow.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
+            self.pw.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
         
     
     def radiobutton2(self):
