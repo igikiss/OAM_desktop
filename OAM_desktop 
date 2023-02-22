@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QFrame, QCheckBox, QRadioButton, QButtonGroup
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor, QImage
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QCursor, QImage, QColor
 import OAMFile
 import OAMDataMan 
 import pyqtgraph as pg
@@ -151,7 +151,7 @@ class MainWindow(QMainWindow):
         self.pw.setLabel('bottom', 'Time', units='h')
         self.pw.enableAutoRange(axis='x', enable=True)
         self.pw.enableAutoRange(axis='y', enable=True)
-        self.pw.setBackground('#285180')
+        self.pw.setBackground('transparent')
         self.pw.addLegend()
         self.pw.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
@@ -159,7 +159,7 @@ class MainWindow(QMainWindow):
         self.radio_button_1.move(50, 750)
         self.radio_button_1.resize(200, 50)    
         self.radio_button_1.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_1.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
+        self.radio_button_1.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.radio_button_1.toggled.connect(self.check_box)
         self.radio_button_1.setChecked(True)
         self.radio_button_1.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
@@ -168,7 +168,7 @@ class MainWindow(QMainWindow):
         self.radio_button_2.move(120, 750)
         self.radio_button_2.resize(200, 50)
         self.radio_button_2.setFont(QFont('Arial', 20, QFont.Bold))  
-        self.radio_button_2.setStyleSheet("background-color: rgb(40, 81, 128); color: rgb(30, 195, 225);")
+        self.radio_button_2.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.radio_button_2.toggled.connect(self.check_box)
         self.radio_button_2.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         self.radio_button_3.move(250, 750)
         self.radio_button_3.resize(200, 50)
         self.radio_button_3.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_3.setStyleSheet("background-color: rgb(40, 81 ,128); color: rgb(30, 195, 225);")
+        self.radio_button_3.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.radio_button_3.toggled.connect(self.check_box)
         self.radio_button_3.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
@@ -191,7 +191,7 @@ class MainWindow(QMainWindow):
         self.pw2.setLabel('bottom', 'Time', units='h')
         self.pw2.enableAutoRange(axis='x', enable=True)
         self.pw2.enableAutoRange(axis='y', enable=True)
-        self.pw2.setBackground('#285180')
+        self.pw2.setBackground('transparent')
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
@@ -200,7 +200,7 @@ class MainWindow(QMainWindow):
             """Plot a column from a dataframe on a chart"""
             chart.plot(df[column], pen=pen, name=name)
 
-        self.pw.plot(OAMDataMan.roll_Pulse, pen=pg.mkPen('r', width=2), name='O2')
+        self.pw.plot(OAMDataMan.roll_Pulse, pen=pg.mkPen({'color': '#ff58fb', 'width':2}), name='O2')
      
      # Calculating the O2 Distribution bar graph
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
@@ -214,11 +214,13 @@ class MainWindow(QMainWindow):
         ticks = [ticks]
 
         bar_plot = pg.BarGraphItem(x=xval, height=df_p['Percentage'], width=0.5)
+        bar_plot.setOpts(brush=QColor(255, 88, 251))    
         self.bar_plot_1.getAxis('bottom').setTicks(ticks)
         self.bar_plot_1.addItem(bar_plot)
 
      
         bar_plot_2 = pg.BarGraphItem(x=OAMDataMan.df_d.index, height=OAMDataMan.df_d['Percentage'], width=0.5)
+        bar_plot_2.setOpts(brush=QColor(255, 176 ,88))
         self.bar_plot_2.addItem(bar_plot_2)
     
 # Loop to fill the table from the dataframe in OAMDataMan
@@ -248,7 +250,7 @@ class MainWindow(QMainWindow):
     def check_box(self):
         self.pw2.clear()
         if self.radio_button_4.isChecked():
-            self.pw2.plot(OAMDataMan.df_filter['SpO2'], pen='b', name='SpO2')
+            self.pw2.plot(OAMDataMan.df_filter['SpO2'], pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2')
             self.pw2.setLabel('left', 'SpO2', units='%')
             
         if self.radio_button_2.isChecked():
