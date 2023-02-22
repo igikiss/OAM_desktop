@@ -244,7 +244,8 @@ class MainWindow(QMainWindow):
         self.pw.setLabel('left', 'SpO2', units='%')
         self.pw.addItem(plot1)
 
-        plot2 = self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
+        plot2 = self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
+        self.pw2.setLabel('left', 'Flow', units='L/min')
         self.pw2.addItem(plot2)
         
         
@@ -268,10 +269,13 @@ class MainWindow(QMainWindow):
     def radiobutton2(self):
         if self.radio_button_4.isChecked():
             self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
+            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
+            self.pw2.setLabel('left', 'Flow', units='L/min')
         if self.radio_button_5.isChecked():
             self.pw2.clear()
             self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='FiO2')
+            self.pw2.plotI(OAMDataMan.df_filter_a['O2_Mode'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='O2 Mode')
+            self.pw2.setLabel('left', 'FiO2', units='%')
             
  
     def load_file():
