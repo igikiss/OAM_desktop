@@ -76,7 +76,7 @@ def rolling_mean(df, column, window, mena_value):
     """Calculate rolling mean"""
     return df[column].rolling(window).mean().fillna(mena_value).round(0)
 
-roll_O2 = rolling_mean(df_filter_a, 'O2', '12H', df_f)
+roll_O2 = rolling_mean(df_filter_a, 'O2', '12H', df_filter_a['O2'].mean())
 roll_SpO2 = rolling_mean(df_filter_a, 'SpO2', '12H', df_filter_a['SpO2'].mean())
 roll_Pulse = rolling_mean(df_filter_a, 'PR', '12H', df_filter_a['PR'].mean())
 roll_PI = rolling_mean(df_filter_a, 'PI', '12H', df_filter_a['PI'].mean())

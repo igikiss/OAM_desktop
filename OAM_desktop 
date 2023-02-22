@@ -167,30 +167,21 @@ class MainWindow(QMainWindow):
         self.radio_button_4.resize(200, 50)    
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_4.toggled.connect(self.radiobutton2)
+        self.radio_button_4.toggled.connect(self.radiobutton1)
         self.radio_button_4.setChecked(True)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.radio_button_5 = QRadioButton('FiO2', self)
-        self.radio_button_5.move(120, 750)
+        self.radio_button_5.move(150, 750)
         self.radio_button_5.resize(200, 50)
         self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))  
         self.radio_button_5.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_5.toggled.connect(self.radiobutton2)
+        #self.radio_button_5.toggled.connect(self.radiobutton2)
         self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-
-        self.radio_button_6 = QRadioButton('1 min', self)
-        self.radio_button_6.move(250, 750)
-        self.radio_button_6.resize(200, 50)
-        self.radio_button_6.setFont(QFont('Arial', 20, QFont.Bold))
-        self.radio_button_6.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        #self.radio_button_6.toggled.connect(self.radiobutton2)
-        self.radio_button_6.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.buttongroup = QButtonGroup()
         self.buttongroup.addButton(self.radio_button_4)
         self.buttongroup.addButton(self.radio_button_5)
-        self.buttongroup.addButton(self.radio_button_6)
         
         self.pw2 = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw2.setGeometry(50, 800, 1800, 250)
@@ -239,15 +230,13 @@ class MainWindow(QMainWindow):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
 
-        plot1 = self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
+        self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
         self.pw.plot(OAMDataMan.roll_SpO2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2 Rolling Average')
         self.pw.setLabel('left', 'SpO2', units='%')
-        self.pw.addItem(plot1)
-
-        plot2 = self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
-        self.pw2.setLabel('left', 'Flow', units='L/min')
-        self.pw2.addItem(plot2)
         
+        self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
+        self.pw2.setLabel('left', 'Flow', units='L/min')
+       
         
     def radiobutton1(self):
         if self.radio_button_1.isChecked():
@@ -264,20 +253,13 @@ class MainWindow(QMainWindow):
             self.pw.clear()
             self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
             self.pw.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
-        
-    
-    def radiobutton2(self):
         if self.radio_button_4.isChecked():
             self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
+            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
             self.pw2.setLabel('left', 'Flow', units='L/min')
-        if self.radio_button_5.isChecked():
-            self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='FiO2')
-            self.pw2.plotI(OAMDataMan.df_filter_a['O2_Mode'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='O2 Mode')
-            self.pw2.setLabel('left', 'FiO2', units='%')
-            
- 
+
+     
+
     def load_file():
         """Load a CSV file into a dataframe"""
         return OAMFile.CSV_Load()
