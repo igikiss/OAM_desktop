@@ -81,3 +81,4 @@ roll_SpO2 = rolling_mean(df_filter_a, 'SpO2', '12H', df_filter_a['SpO2'].mean())
 roll_Pulse = rolling_mean(df_filter_a, 'PR', '12H', df_filter_a['PR'].mean())
 roll_PI = rolling_mean(df_filter_a, 'PI', '12H', df_filter_a['PI'].mean())
 
+df_filter_a.columns

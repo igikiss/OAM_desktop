@@ -171,7 +171,7 @@ class MainWindow(QMainWindow):
         self.radio_button_4.setChecked(True)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
-        self.radio_button_5 = QRadioButton('Pulse Rate', self)
+        self.radio_button_5 = QRadioButton('FiO2', self)
         self.radio_button_5.move(120, 750)
         self.radio_button_5.resize(200, 50)
         self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))  
@@ -184,7 +184,7 @@ class MainWindow(QMainWindow):
         self.radio_button_6.resize(200, 50)
         self.radio_button_6.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_6.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        self.radio_button_6.toggled.connect(self.radiobutton2)
+        #self.radio_button_6.toggled.connect(self.radiobutton2)
         self.radio_button_6.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.buttongroup = QButtonGroup()
@@ -267,12 +267,12 @@ class MainWindow(QMainWindow):
     
     def radiobutton2(self):
         if self.radio_button_4.isChecked():
-            self.pw2.plot(OAMDataMan.df_filter_a['Flow(l/min)'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Flow')
         if self.radio_button_5.isChecked():
-            pass
-          
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='FiO2')
             
-     
  
     def load_file():
         """Load a CSV file into a dataframe"""
