@@ -168,7 +168,7 @@ class MainWindow(QMainWindow):
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.radio_button_4.toggled.connect(self.radiobutton2)
-        self.radio_button_4.setChecked(True)
+        #self.radio_button_4.setChecked(True)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.radio_button_5 = QRadioButton('FiO2', self)
@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         self.radio_button_5.resize(200, 50)    
         self.radio_button_5.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_5.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
-        #self.radio_button_5.toggled.connect(self.radiobutton1)
+        self.radio_button_5.toggled.connect(self.radiobutton2)
         self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
         
         self.buttongroup = QButtonGroup()
@@ -239,6 +239,7 @@ class MainWindow(QMainWindow):
        
         
     def radiobutton1(self):
+        """Function to plot the SpO2 and Pulse Rate graphs when the radio buttons are clicked"""
         if self.radio_button_1.isChecked():
             self.pw.clear()
             self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
@@ -253,19 +254,31 @@ class MainWindow(QMainWindow):
             self.pw.clear()
             self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
             self.pw.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
-      
+    
+          
        
     def radiobutton2(self):
         if self.radio_button_4.isChecked():
-            pass
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
+            self.pw2.setLabel('left', 'Flow', units='L/min')
+        if self.radio_button_5.isChecked():
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_filter_a['O2)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
+            self.pw2.setLabel('left', 'FiO2', units='%')
+        else:
+            self.pw2.clear()
+            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
+            self.pw2.setLabel('left', 'Flow', units='L/min')
+            
+        
 
     def load_file():
         """Load a CSV file into a dataframe"""
         return OAMFile.CSV_Load()
 
-   # create screen shot of the window and opne the dialog box to save it
-
     def take_screenshot(self):
+        """Take a screenshot of the current window and save it to a file"""
         screen = QtGui.QGuiApplication.primaryScreen()
         pixmap = screen.grabWindow(0)
         options = QFileDialog.Options()
