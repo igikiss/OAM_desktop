@@ -83,4 +83,11 @@ roll_PI = rolling_mean(df_filter_a, 'PI', '6H', df_filter_a['PI'].mean())
 
 
 
+# calculate for each flow value  O2 value distribution
+df_j = df_filter_a.groupby('Flow_(L/min)').agg({'O2': ['count', 'mean', 'median', 'min', 'max']})
+df_j.columns = ['Count', 'Mean', 'Median', 'Min', 'Max']
+df_j = df_j.round(0)
+print(df_j)
+df_j = df_j[df_j['Count'] >= 1]
+print(df_j)
 
