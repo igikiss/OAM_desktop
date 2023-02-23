@@ -264,13 +264,9 @@ class MainWindow(QMainWindow):
             self.pw2.setLabel('left', 'Flow', units='L/min')
         if self.radio_button_5.isChecked():
             self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['O2)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
+            self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
             self.pw2.setLabel('left', 'FiO2', units='%')
-        else:
-            self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['Flow_(L/min)'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='Flow')
-            self.pw2.setLabel('left', 'Flow', units='L/min')
-            
+      
         
 
     def load_file():
