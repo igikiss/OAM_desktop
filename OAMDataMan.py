@@ -72,13 +72,15 @@ def elapsed_time(dff):
     count = int(dff['O2'].count())
     return timedelta(seconds=count)
 
-def rolling_mean(df, column, window, mena_value):
+def rolling_mean(df, column, window, mean_value):
     """Calculate rolling mean"""
-    return df[column].rolling(window).mean().fillna(mena_value).round(0)
+    return df[column].rolling(window).mean().fillna(mean_value).round(0)
 
-roll_O2 = rolling_mean(df_filter_a, 'O2', '12H', df_filter_a['O2'].mean())
-roll_SpO2 = rolling_mean(df_filter_a, 'SpO2', '12H', df_filter_a['SpO2'].mean())
-roll_Pulse = rolling_mean(df_filter_a, 'PR', '12H', df_filter_a['PR'].mean())
-roll_PI = rolling_mean(df_filter_a, 'PI', '12H', df_filter_a['PI'].mean())
+roll_O2 = rolling_mean(df_filter_a, 'O2', '6H', df_filter_a['O2'].mean())
+roll_SpO2 = rolling_mean(df_filter_a, 'SpO2', '6H', df_filter_a['SpO2'].mean())
+roll_Pulse = rolling_mean(df_filter_a, 'PR', '6H', df_filter_a['PR'].mean())
+roll_PI = rolling_mean(df_filter_a, 'PI', '6H', df_filter_a['PI'].mean())
 
-df_filter_a.columns
+
+
+
