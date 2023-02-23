@@ -38,7 +38,6 @@ class MainWindow(QMainWindow):
         self.label_1.setStyleSheet("color: rgb(30, 195, 225);")
         self.label_1.move(700, 50)
       
-       
         self.l_button = QPushButton('Load File', self)
         self.l_button.move(50, 150)
         self.l_button.resize(200, 50)
@@ -168,7 +167,7 @@ class MainWindow(QMainWindow):
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.radio_button_4.toggled.connect(self.radiobutton2)
-        #self.radio_button_4.setChecked(True)
+        self.radio_button_4.setChecked(True)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.radio_button_5 = QRadioButton('FiO2', self)
@@ -193,7 +192,6 @@ class MainWindow(QMainWindow):
         self.pw2.addLegend()
         self.pw2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         
-
      # Calculating the O2 Distribution bar graph
         df_p = pd.DataFrame(OAMDataMan.percentage(OAMDataMan.df, 'O2_Mode'))
         df_p.columns = ['Percentage']
@@ -210,11 +208,10 @@ class MainWindow(QMainWindow):
         self.bar_plot_1.getAxis('bottom').setTicks(ticks)
         self.bar_plot_1.addItem(bar_plot)
 
-     
         bar_plot_2 = pg.BarGraphItem(x=OAMDataMan.df_d.index, height=OAMDataMan.df_d['Percentage'], width=0.5)
         bar_plot_2.setOpts(brush=QColor(255, 176 ,88))
         self.bar_plot_2.addItem(bar_plot_2)
-    
+
 # Loop to fill the table from the dataframe in OAMDataMan
         for i, row in OAMDataMan.table_val.iterrows():
             param_item = QTableWidgetItem(row['Parameter'])
@@ -230,7 +227,7 @@ class MainWindow(QMainWindow):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
 
-        self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
+        #self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
         self.pw.plot(OAMDataMan.roll_SpO2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2 Rolling Average')
         self.pw.setLabel('left', 'SpO2', units='%')
         
@@ -242,17 +239,17 @@ class MainWindow(QMainWindow):
         """Function to plot the SpO2 and Pulse Rate graphs when the radio buttons are clicked"""
         if self.radio_button_1.isChecked():
             self.pw.clear()
-            self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
+            #self.pw.plot(OAMDataMan.df_filter_a['SpO2'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='SpO2')
             self.pw.plot(OAMDataMan.roll_SpO2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='SpO2 Rolling Average')
             self.pw.setLabel('left', 'SpO2', units='%')
         if self.radio_button_2.isChecked():
             self.pw.clear()
-            self.pw.plot(OAMDataMan.df_filter_a['PR'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Pulse Rate')
+            #self.pw.plot(OAMDataMan.df_filter_a['PR'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Pulse Rate')
             self.pw.plot(OAMDataMan.roll_Pulse, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Pulse Rate Rolling Average')
             self.pw.setLabel('left', 'BPM', units='bpm')
         if self.radio_button_3.isChecked():
             self.pw.clear()
-            self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
+            #self.pw.plot(OAMDataMan.df_filter_a['PI'], pen=pg.mkPen({'color': '#d1eaf0', 'width':0.5}), name='Perfusion Index')
             self.pw.plot(OAMDataMan.roll_PI, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='Perfusion Index Rolling Average')
     
           
@@ -264,11 +261,11 @@ class MainWindow(QMainWindow):
             self.pw2.setLabel('left', 'Flow', units='L/min')
         if self.radio_button_5.isChecked():
             self.pw2.clear()
-            self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
+            #self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
+            self.pw2.plot(OAMDataMan.roll_O2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='FiO2 Rolling Average')
             self.pw2.setLabel('left', 'FiO2', units='%')
-      
-        
 
+    
     def load_file():
         """Load a CSV file into a dataframe"""
         return OAMFile.CSV_Load()
