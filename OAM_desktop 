@@ -9,6 +9,7 @@ import pandas as pd
 
 
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -167,7 +168,7 @@ class MainWindow(QMainWindow):
         self.radio_button_4.setFont(QFont('Arial', 20, QFont.Bold))
         self.radio_button_4.setStyleSheet("background-color: transparent; color: rgb(30, 195, 225);")
         self.radio_button_4.toggled.connect(self.radiobutton2)
-        self.radio_button_4.setChecked(True)
+        #self.radio_button_4.setChecked(True)
         self.radio_button_4.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
 
         self.radio_button_5 = QRadioButton('FiO2', self)
@@ -178,9 +179,9 @@ class MainWindow(QMainWindow):
         self.radio_button_5.toggled.connect(self.radiobutton2)
         self.radio_button_5.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
         
-        self.buttongroup = QButtonGroup()
-        self.buttongroup.addButton(self.radio_button_4)
-        self.buttongroup.addButton(self.radio_button_5)
+        self.buttongroup2 = QButtonGroup()
+        self.buttongroup2.addButton(self.radio_button_4)
+        self.buttongroup2.addButton(self.radio_button_5)
         
         self.pw2 = pg.PlotWidget(self, axisItems={'bottom': pg.DateAxisItem()})
         self.pw2.setGeometry(50, 800, 1800, 250)
@@ -261,14 +262,12 @@ class MainWindow(QMainWindow):
             self.pw2.setLabel('left', 'Flow', units='L/min')
         if self.radio_button_5.isChecked():
             self.pw2.clear()
-            #self.pw2.plot(OAMDataMan.df_filter_a['O2'], pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
-            self.pw2.plot(OAMDataMan.roll_O2, pen= pg.mkPen({'color': '#ffb058', 'width':2}), name='FiO2 Rolling Average')
+            self.pw2.plot(OAMDataMan.roll_O2, pen=pg.mkPen({'color': '#ff56fb', 'width':1}), name='FiO2')
             self.pw2.setLabel('left', 'FiO2', units='%')
-
     
     def load_file():
         """Load a CSV file into a dataframe"""
-        return OAMFile.CSV_Load()
+        df = OAMDataMan.load_file()
 
     def take_screenshot(self):
         """Take a screenshot of the current window and save it to a file"""

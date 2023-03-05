@@ -13,6 +13,6 @@ class CSV_Load:
         df['DateTime'] = pd.to_datetime(df['DateTime'])
         df.set_index('DateTime', inplace=True)
         df.columns = df.columns.str.replace(' ', '_')
-        modes = df['O2_Mode'].unique()
+        
 
         return df
