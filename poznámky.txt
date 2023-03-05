@@ -1,5 +1,5 @@
-- Pridať chybové hlásenie ak sa načíta iný CSV súbor ako log z OAM
-- Vymazať predošlé dáta keď sa znova stlačí tla LOAD
+- Pridať chybové hlásenie ak sa načíta iný CSV súbor ako log z OAM = OK
+- Vymazať predošlé dáta keď sa znova stlačí tla LOAD = OK
 - Všetky widgety by mali byť prispôsobené k veľkosti okna
 - Vymyslieť zaujímavé štastiky ...
 - Vytvoriť print screen z obrazovky = OK
@@ -7,7 +7,7 @@
 - ktoré dáta do tabuľky? 
 - grafy posledných 25% percent terapie vs 75% úredošlých terapie = OK
 - bar graf na zobrazenie distribucie O2 módov a hladiny FIO2 = OK
-- K-Means clustering
-- uložiť všetky dáta do databázy a vytvoriť grafy z databázy (Azure)
+- K-Means clustering = NIE 
+- uložiť všetky dáta do databázy a vytvoriť grafy z databázy (Azure) = V2
 - Conditional probability
 - Vytvoriť Scatter plot FiO2 vs Pulse Rate
