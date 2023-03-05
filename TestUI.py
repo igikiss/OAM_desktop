@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         palette.setBrush(QtGui.QPalette.Window, QtGui.QBrush(sImage)) 
         self.setPalette(palette)
         self.df = None
-        self.color_palette = {'Blue': QColor(30, 195, 225), 'Purpule': QColor(255, 88, 251), 'Yellow': QColor(255, 88, 251)}
+        self.color_palette = {'Blue': QColor(30, 195, 225), 'Purpule': QColor(255, 88, 251), 'Yellow': QColor(255, 176 ,88)}
         
     def InitWindow(self):
         self.setWindowTitle(self.title)
