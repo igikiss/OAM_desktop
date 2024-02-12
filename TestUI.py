@@ -91,7 +91,6 @@ class MainWindow(QMainWindow):
         self.table.setStyleSheet(
     "background-color: transparent; color: rgb(30, 195, 225); border: 1px solid black;"
 )
-
         self.table.setHorizontalHeaderLabels(['Parameter', 'Value'])
         font = QtGui.QFont()
         font.setPointSize(16)   

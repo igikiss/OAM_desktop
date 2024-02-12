@@ -2,6 +2,7 @@
 - Vymazať predošlé dáta keď sa znova stlačí tla LOAD = OK
 - Všetky widgety by mali byť prispôsobené k veľkosti okna
 - Vymyslieť zaujímavé štastiky ...
+- urobiť štatistiku sile signálu vs FiO2 riadenie a porovnať algoritmus sy riadením s dobrým signálom
 - Vytvoriť print screen z obrazovky = OK
 - Pridať table na zobrazenie štastiky = OK
 - ktoré dáta do tabuľky? 
