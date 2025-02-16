@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 import pandas as pd
 from datetime import timedelta
-
+from typing import Optional
 
 @dataclass
 class DataProcessor:
-    df: pd.DataFrame
+    df: Optional[pd.DataFrame] = None
     
+    
+
     def signal_filter(self, min_signal, min_spo2):
         """Filter DataFrame by signal strength and SpO2"""
         return self.df[(self.df['Signal_I/Q'] >= min_signal) & (self.df['SpO2'] >= min_spo2)]
@@ -28,6 +30,8 @@ class DataProcessor:
     def percentage(self, column):
         """Calculate percentage of unique values in a column"""
         return self.df[column].value_counts(normalize=True) * 100
+    
+    
 
     def o2_distribution(self):
         """Calculate O2 distribution from filtered data frame"""
